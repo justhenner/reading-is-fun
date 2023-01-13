@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" src="./assets/css/style.css">
+    <title>Search Results</title>
+</head>
+
+<body>
+    <header class="columns p-4 has-background-primary">
+        <input class="input column my-3 mx-3 px-2 is-normal is-rounded is-3" type="text" placeholder="Title">
+        <input class="input column my-3 mx-3 px-2 is-normal is-rounded is-3" type="text" placeholder="Author">
+        <input class="input column my-3 mx-3  px-2 is-normal is-rounded is-3" type="text" placeholder="Genre">
+        <div class="column column is-normal is-rounded is-.5"></div>
+        <button class="button column mx-8 px-10 my-3 mr-2 is-normal is-rounded is-2">Find Me A Book</button>
+    </header>
+
+    <div class="columns">
+        <container class="column is-mobile section is-one-third  is-align-items-flex-start">
+            <section class="column has-background-warning-dark" style="height: 700px; border-style: solid; border-color: rgb(47, 14, 14);">
+            </section>
+        </container>
+
+        <container class="column is-mobile section  is-align-items-flex-start">
+            <!-- <section class="column is-5 has-background-warning-dark" style="height:175px;">
+        </section> -->
+
+            <section class="columns is-size-1" style="height: fit-content;">
+                <p>Search results for </p></section>
+                <div class="columns is-multiline">
+                <box class="column is-12 box is-radius  is-size-1 mt-6 my-3 " style="height: fit-content; border-style: solid; border-color: black;">
+                    I'm in a box.</box>
+                <box class="column box is-radius is-12  is-size-1 my-3 " style="height: fit-content; border-style: solid; border-color: black;">I'm
+                    in a box.</box>
+                <box class="column is-12 box is-radius  is-size-1 my-3 " style="height: fit-content; border-style: solid; border-color: black;">I'm
+                    in a box.</box>
+                    <box class="column is-12 box is-radius  is-size-1 my-3 " style="height: fit-content; border-style: solid; border-color: black;">I'm
+                    in a box.</box>
+                <box class="column is-12 box is-radius is-size-1 my-3 " style="height: fit-content; border-style: solid; border-color: black;">I'm
+                            in a box.</box>
+                </div>
+            
+
+        </container>
+    </div>
+    <!-- <section class="columns is-mobile section px-5 is-multiline is-mobile">
+        <section class="column is-full has-background-primary-dark is-size-1 m-3 ml-5" style="height: fit-content;">I'm in a box.</section>
+        <section class="column is-full has-background-primary-dark is-size-1 m-3 ml-5" style="height: fit-content;">I'm in a box.</section>
+        <section class="column is-full has-background-primary-dark is-size-1 m-3 ml-5" style="height: fit-content;">I'm in a box.</section>
+        
+    </section> -->
+
+    <script src="https://cdn.jsdelivr.net/npm/umbrellajs"></script>
+    <script src="./assets/js/script.js"></script>
+</body>
+
+</html>
