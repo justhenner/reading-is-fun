@@ -1,5 +1,8 @@
 var searchModal = u("#search-modal");
-
+// modal
+const searchButton = document.querySelector('#search-btn');
+const modalBg = document.querySelector('.modal-background');
+const closeButton = document.querySelector('#close-btn');
 
 
 
@@ -37,3 +40,7 @@ u(".close-search").on("click", closeSearch);
 
 // Search submit event listener
 u(".book-search").on("submit", findBooks);
+
+searchButton.addEventListener('click', () => {
+    modal.classList.add('is-active');
+});
