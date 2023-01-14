@@ -7,9 +7,17 @@ var searchModal = u("#search-modal");
 function closeSearch() {
     searchModal.removeClass("is-active");
 }
+
 // Search event handler
 function findBooks(event){
-    
+    event.preventDefault();
+
+    console.log(u(".title-input"));
+
+    var title = u(".title-input").attr("value");
+    var author = u(".author-input").attr("value");
+    var subject = u(".subject-input").attr("value");
+    console.log(title, author, subject);
     // Validate input
 
     // Construct Google Books URL
