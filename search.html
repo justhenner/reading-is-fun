@@ -11,13 +11,12 @@
 </head>
 
 <body>
-    <header class="columns p-4 has-background-primary">
-        <input class="input column my-3 mx-3 px-2 is-normal is-rounded is-3" type="text" placeholder="Title">
-        <input class="input column my-3 mx-3 px-2 is-normal is-rounded is-3" type="text" placeholder="Author">
-        <input class="input column my-3 mx-3  px-2 is-normal is-rounded is-3" type="text" placeholder="Genre">
-        <div class="column column is-normal is-rounded is-.5"></div>
-        <button class="button column mx-8 px-10 my-3 mr-2 is-normal is-rounded is-2">Find Me A Book</button>
-    </header>
+        <form id ="searchForm" class="columns p-4 has-background-primary">
+            <input  id="title" class="input column my-3 mx-3 px-2 is-normal is-rounded is-3" type="text" placeholder="Title">
+            <input id="author" class="input column my-3 mx-3 px-2 is-normal is-rounded is-3" type="text" placeholder="Author">
+            <div class="column column is-normal is-rounded is-3"></div>
+            <button id = "searchBtn" class="button column mx-8 px-10 my-3 mr-2 is-normal is-rounded is-2" onclick="createitem">Find Me A Book</button>
+        </form>
 
     <div class="columns">
         <container class="column is-mobile section is-one-third  is-align-items-flex-start">
@@ -29,9 +28,9 @@
             <!-- <section class="column is-5 has-background-warning-dark" style="height:175px;">
         </section> -->
 
-            <!-- <section class="columns is-size-1" style="height: fit-content;">
-                <p>Search results for </p></section>
-                <div class="columns is-multiline">
+            <section id=searchQs class="columns is-size-1" style="height: fit-content;">
+                <p>Search results for <span id = 'searchQ'></span></p></section>
+                <!-- <div class="columns is-multiline">
                 <box class="column is-12 box is-radius  is-size-1 mt-6 my-3 " style="height: fit-content; border-style: solid; border-color: black;">
                     I'm in a box.</box>
                 <box class="column box is-radius is-12  is-size-1 my-3 " style="height: fit-content; border-style: solid; border-color: black;">I'm
