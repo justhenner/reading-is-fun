@@ -100,6 +100,18 @@ function findBooks(event) {
     }
 }
 
+// function to call Google Books API
+function callGoogleBooksAPI(url) {
+    fetch(url)
+    .then(function(response) {
+      response.json()
+      .then(function(data) {
+      console.log(data);
+      extractSearchResults(data);
+      })
+    });
+}
+
 // Google Books API callback function
 
 // Extract results from the API response
