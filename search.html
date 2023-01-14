@@ -11,13 +11,13 @@
 </head>
 
 <body>
-    <header class="columns p-4 has-background-primary">
-        <input class="input column my-3 mx-3 px-2 is-normal is-rounded is-3" type="text" placeholder="Title">
-        <input class="input column my-3 mx-3 px-2 is-normal is-rounded is-3" type="text" placeholder="Author">
-        <input class="input column my-3 mx-3  px-2 is-normal is-rounded is-3" type="text" placeholder="Genre">
+    <form id="search-form" class="columns p-4 has-background-primary">
+        <input id="title-search" class="input column my-3 mx-3 px-2 is-normal is-rounded is-3" type="text" placeholder="Title">
+        <input id="author-search" class="input column my-3 mx-3 px-2 is-normal is-rounded is-3" type="text" placeholder="Author">
+        <input id= "genre-search" class="input column my-3 mx-3  px-2 is-normal is-rounded is-3" type="text" placeholder="Genre">
         <div class="column column is-normal is-rounded is-.5"></div>
-        <button class="button column mx-8 px-10 my-3 mr-2 is-normal is-rounded is-2">Find Me A Book</button>
-    </header>
+        <button id= "search-button" class="button column mx-8 px-10 my-3 mr-2 is-normal is-rounded is-2">Find Me A Book</button>
+    </form>
 
     <div class="columns">
         <container class="column is-mobile section is-one-third  is-align-items-flex-start">
@@ -25,7 +25,7 @@
             </section>
         </container>
 
-        <container class="column is-mobile section  is-align-items-flex-start">
+        <container id= "searches" class="column is-mobile section  is-align-items-flex-start">
             <!-- <section class="column is-5 has-background-warning-dark" style="height:175px;">
         </section> -->
 
@@ -55,7 +55,7 @@
     </section> -->
 
     <script src="https://cdn.jsdelivr.net/npm/umbrellajs"></script>
-    <script src="./assets/js/script.js"></script>
+    <script src="./assets/js/search.js"></script>
 </body>
 
 </html>
