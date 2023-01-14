@@ -1,0 +1,12 @@
+@media screen and (min-width: 1024px) {
+    #main-content {
+        min-height:25vh;
+        display:flex!important;
+        flex-wrap:wrap!important;
+        align-content:space-around!important;
+    }
+
+    #main-content h1, #main-content p, #main-content div {
+        width:100%!important;
+    }
+}
