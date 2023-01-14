@@ -8,7 +8,9 @@ var authorInput = document.querySelector(".author-input");
 var subjectInput = document.querySelector(".subject-input");
 var googleURL;
 
-
+function openSearch() {
+    document.getElementById("search-modal").classList.add('is-active');
+}
 
 // Close the search modal when the user clicks the close button
 function closeSearch() {
@@ -20,6 +22,7 @@ function validateSearch(title, author, subject) {
     if (!title && !author && !subject) {
         u(".validation").append("<div class='modal is-active' id='invalid-search'><div class='modal-background close-warning'></div><div class='modal-card'><header class='modal-card-head has-background-primary'><p class='modal-card-title has-text-white'>Invalid Search</p><button class='delete close-warning' aria-label='close'></button></header><section class='modal-card-body'><p>Please enter at least one search term.</p></section><footer class='modal-card-foot'><button class='button is-primary close-warning'>OK</button></footer></div></div>");
 
+        searchModal.removeClass("is-active");
         u(".close-warning").on("click", closeValidation);
         return false;
     } else {
@@ -29,6 +32,9 @@ function validateSearch(title, author, subject) {
 
 function closeValidation() {
     u("#invalid-search").removeClass("is-active");
+    if (document.location.pathname.includes("/index.html")) {
+        openSearch();
+    }
 }
 
 // function to build Google API URL
@@ -68,6 +74,4 @@ u(".close-search").on("click", closeSearch);
 // Search submit event listener
 u(".book-search").on("submit", findBooks);
 
-searchButton.addEventListener('click', () => {
-    modal.classList.add('is-active');
-});
+u(searchButton).on("click", openSearch);
