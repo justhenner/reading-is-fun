@@ -6,7 +6,7 @@ const closeButton = document.querySelector('#close-btn');
 var titleInput = document.querySelector(".title-input");
 var authorInput = document.querySelector(".author-input");
 var subjectInput = document.querySelector(".subject-input");
-var googleURL;
+var googleURL = "";
 
 function openSearch() {
     document.getElementById("search-modal").classList.add('is-active');
@@ -38,6 +38,44 @@ function closeValidation() {
 }
 
 // function to build Google API URL
+function buildGoogleURL(title="", author="", subject="") {
+    var titleQuery = "";
+    var authorQuery = "";
+    var subjectQuery = "";
+    var tempString = "";
+
+    if (title) {
+        titleQuery = "intitle:" + title;
+    }
+    if (author) {
+        authorQuery = "inauthor:" + author;
+    }
+    if (subject) {
+        subjectQuery = "subject:" + subject;
+    }
+
+    tempString = "https://www.googleapis.com/books/v1/volumes?q=" + titleQuery;
+    if (titleQuery && authorQuery) {
+        tempString += "+" + authorQuery;
+    } else if (authorQuery) {
+        tempString += authorQuery;
+    }
+    if ((titleQuery || authorQuery) && subjectQuery) {
+        tempString += "+" + subjectQuery;
+    } else {
+        tempString += subjectQuery;
+    }
+
+    tempString += "&key=AIzaSyAhDgj4gWvslxpeieHpnM8XOjFd5NET7RA"
+    for (var i = 0; i < tempString.length; i++) {
+        if (tempString[i] === " ") {
+            googleURL += "+";
+        } else {
+            googleURL += tempString[i];
+        }
+    }
+    console.log(googleURL);
+}
 
 // Search event handler
 function findBooks(event) {
