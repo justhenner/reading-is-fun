@@ -12,16 +12,23 @@
 
 <body>
     <header class="columns p-4 has-background-primary">
-        <input class="input column my-3 mx-3 px-2 is-normal is-rounded is-3" type="text" placeholder="Title">
-        <input class="input column my-3 mx-3 px-2 is-normal is-rounded is-3" type="text" placeholder="Author">
-        <input class="input column my-3 mx-3  px-2 is-normal is-rounded is-3" type="text" placeholder="Genre">
-        <div class="column column is-normal is-rounded is-.5"></div>
-        <button class="button column mx-8 px-10 my-3 mr-2 is-normal is-rounded is-2">Find Me A Book</button>
+        <form class="book-search">
+            <input class="input column my-3 mx-3 px-2 is-normal is-rounded is-3 title-input" type="text"
+                placeholder="Title">
+            <input class="input column my-3 mx-3 px-2 is-normal is-rounded is-3 author-input" type="text"
+                placeholder="Author">
+            <input class="input column my-3 mx-3 subject-input px-2 is-normal is-rounded is-3" type="text"
+                placeholder="Genre">
+            <div class="column column is-normal is-rounded is-.5"></div>
+            <button class="button column mx-8 px-10 my-3 mr-2 is-normal is-rounded is-2 search-for-books">Find Me A
+                Book</button>
+        </form>
     </header>
 
     <div class="columns">
         <container class="column is-mobile section is-one-third  is-align-items-flex-start">
-            <section class="column has-background-warning-dark" style="height: 700px; border-style: solid; border-color: rgb(47, 14, 14);">
+            <section class="column has-background-warning-dark"
+                style="height: 700px; border-style: solid; border-color: rgb(47, 14, 14);">
             </section>
         </container>
 
@@ -43,7 +50,7 @@
                 <box class="column is-12 box is-radius is-size-1 my-3 " style="height: fit-content; border-style: solid; border-color: black;">I'm
                             in a box.</box>
                 </div> -->
-            
+
 
         </container>
     </div>
