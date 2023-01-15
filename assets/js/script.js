@@ -129,7 +129,18 @@ function extractSearchResults(data) {
         } else {
             result.authors = data.items[i].volumeInfo.authors[0];
         }
-        result.categories = data.items[i].volumeInfo.categories;
+        result.categories = "";
+        if (data.items[i].volumeInfo.categories) {
+            if (data.items[i].volumeInfo.categories.length > 1) {
+                for (var j = 0; j < data.items[i].volumeInfo.categories.length - 1; j++) {
+                    result.categories += data.items[i].volumeInfo.categories[j];
+                    result.categories += ", ";
+                }
+                result.categories += data.items[i].volumeInfo.categories[data.items[i].volumeInfo.categories.length - 1];
+            } else {
+                result.categories = data.items[i].volumeInfo.categories[0];
+            }
+        }
         result.description = data.items[i].volumeInfo.description;
         if (data.items[i].volumeInfo.imageLinks) {
             result.thumbnail = "https" + data.items[i].volumeInfo.imageLinks.thumbnail.slice(4);
@@ -149,11 +160,7 @@ function extractSearchResults(data) {
         results.push(result);
     }
 
-    // Change document.location property to open search results page
-    // if (!document.location.pathname.includes("search.html")) {
-    //     document.location.assign("./search.html");
-    // }
-    // console.log(results);
+    // Call the populateSearchResults function
     populateSearchResults(results);
 }
 
@@ -163,10 +170,11 @@ function populateSearchResults(results) {
     u("#results-page").attr("style", "display:block");
     // Use the search results to dynamically generate html
     for (var i = 0; i < results.length; i++) {
-        console.log(results[i]);
         // Append the dynamically generated html to the search results container
-        var newResult = u("#result-list").append("<div id='result" + i + "' class='box is-shadowless has-background-grey-lighter result mb-5 px-2 py-1 w-100 columns'><div><img src='" + results[i].thumbnail + "'/></div><div class='column'><h3 class='is-size-4'>" + results[i].title + "</h3><h4 class='is-size-5'>" + results[i].subtitle + "</h4><p class='is-size-6'>Author(s): " + results[i].authors + "</p></div></div");
+        var newResult = u("#result-list").append("<div id='result" + i + "' class='box is-shadowless has-background-grey-lighter result mb-5 px-2 py-1 w-100 columns'><div><img src='" + results[i].thumbnail + "'/></div><div class='column'><h3 class='is-size-4 has-text-primary-dark'>" + results[i].title + "</h3><h4 class='is-size-5 has-text-primary'>" + results[i].subtitle + "</h4><p class='is-size-6'>Author(s): " + results[i].authors + "</p><div class='columns'><p class='column is-size-6'>Publication Date: " + results[i].publicationDate + "</p><p class='column is-size-6'>" + results[i].pages + " pages</p></div><p class='is-size-6'>Subject(s): " + results[i].categories + "</p></div></div");
+        u(newResult).data({thumbnail: results[i].thumbnail, title: results[i].title, subtitle: results[i].subtitle, authors: results[i].authors, publicationDate: results[i].publicationDate, pages: results[i].pages, categories: results[i].categories, id: results[i].id, description: results[i].description, previewLink: results[i].previewLink, isbn: results[i].isbn});
     }
+    u("#result-list").on("click", callNYT);
 }
 
 // Close button event listener
@@ -176,5 +184,3 @@ u(".close-search").on("click", closeSearch);
 u(".book-search").on("submit", findBooks);
 
 u(searchButton).on("click", openSearch);
-
-// Event listener for click of search result
