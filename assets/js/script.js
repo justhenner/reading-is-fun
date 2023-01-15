@@ -7,6 +7,7 @@ var titleInput = document.querySelector(".title-input");
 var authorInput = document.querySelector(".author-input");
 var subjectInput = document.querySelector(".subject-input");
 var googleURL = "";
+var query = "";
 
 function openSearch() {
     document.getElementById("search-modal").classList.add('is-active');
@@ -83,6 +84,23 @@ function findBooks(event) {
     var title = titleInput.value.trim();
     var author = authorInput.value.trim();
     var subject = subjectInput.value.trim();
+
+    if (title) {
+        query = title;
+        if (author) {
+            query += "+" + author;
+        }
+        if (subject) {
+            query += "+" + subject;
+        }
+    } else if (author) {
+        query = author;
+        if (subject) {
+            query += "+" + subject;
+        }
+    } else {
+        query = subject;
+    }
 
     titleInput.value = "";
     authorInput.value = "";
@@ -161,13 +179,15 @@ function extractSearchResults(data) {
     }
 
     // Call the populateSearchResults function
-    populateSearchResults(results);
+    populateSearchResults(results, query);
 }
 
 // Populate search results function
-function populateSearchResults(results) {
+function populateSearchResults(results, query) {
     u("#index-page").attr("style", "display:none");
     u("#results-page").attr("style", "display:block");
+    document.getElementById("results-heading").textContent += '"' + query + '"';
+
     // Use the search results to dynamically generate html
     for (var i = 0; i < results.length; i++) {
         // Append the dynamically generated html to the search results container
