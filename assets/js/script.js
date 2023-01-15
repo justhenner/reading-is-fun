@@ -38,7 +38,7 @@ function closeValidation() {
 }
 
 // function to build Google API URL
-function buildGoogleURL(title="", author="", subject="") {
+function buildGoogleURL(title = "", author = "", subject = "") {
     var titleQuery = "";
     var authorQuery = "";
     var subjectQuery = "";
@@ -74,7 +74,6 @@ function buildGoogleURL(title="", author="", subject="") {
             googleURL += tempString[i];
         }
     }
-    console.log(googleURL);
 }
 
 // Search event handler
@@ -103,20 +102,43 @@ function findBooks(event) {
 // function to call Google Books API
 function callGoogleBooksAPI(url) {
     fetch(url)
-    .then(function(response) {
-      response.json()
-      .then(function(data) {
-      console.log(data);
-      extractSearchResults(data);
-      })
-    });
+        .then(function (response) {
+            response.json()
+                .then(function (data) {
+                    googleURL = "";
+                    extractSearchResults(data);
+                })
+        });
 }
 
 // Google Books API callback function
+function extractSearchResults(data) {
+    // Extract results from the API response
+    var results = [];
 
-// Extract results from the API response
+    for (var i = 0; i < data.items.length; i++) {
+        var result = {};
+        result.id = data.items[i].id;
+        result.authors = data.items[i].volumeInfo.authors;
+        result.categories = data.items[i].volumeInfo.categories;
+        result.description = data.items[i].volumeInfo.description;
+        if (data.items[i].volumeInfo.imageLinks) {
+            result.thumbnail = "https" + data.items[i].volumeInfo.imageLinks.thumbnail.slice(4);;
+        } else {
+            result.thumbnail = ""
+        }
+        result.pages = data.items[i].volumeInfo.pageCount;
+        result.previewLink = "https" + data.items[i].volumeInfo.previewLink.slice(4);
+        result.publicationDate = data.items[i].volumeInfo.publishedDate.slice(0, 4);
+        result.title = data.items[i].volumeInfo.title;
+        result.subtitle = data.items[i].volumeInfo.subtitle;
+        results.push(result);
+    }
 
-// Change document.location property to open search results page
+    // Change document.location property to open search results page
+    document.location.assign("./search.html");
+    populateSearchResults(results);
+}
 
 // Close button event listener
 u(".close-search").on("click", closeSearch);
