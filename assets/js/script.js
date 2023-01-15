@@ -123,15 +123,16 @@ function extractSearchResults(data) {
         result.categories = data.items[i].volumeInfo.categories;
         result.description = data.items[i].volumeInfo.description;
         if (data.items[i].volumeInfo.imageLinks) {
-            result.thumbnail = "https" + data.items[i].volumeInfo.imageLinks.thumbnail.slice(4);;
+            result.thumbnail = "https" + data.items[i].volumeInfo.imageLinks.thumbnail.slice(4);
         } else {
-            result.thumbnail = ""
+            result.thumbnail = "./assets/images/CoverUnavailable.jpg"
         }
         result.pages = data.items[i].volumeInfo.pageCount;
         result.previewLink = "https" + data.items[i].volumeInfo.previewLink.slice(4);
         result.publicationDate = data.items[i].volumeInfo.publishedDate.slice(0, 4);
         result.title = data.items[i].volumeInfo.title;
         result.subtitle = data.items[i].volumeInfo.subtitle;
+        result.isbn = data.items[i].volumeInfo.industryIdentifiers[0].identifier;
         results.push(result);
     }
 
