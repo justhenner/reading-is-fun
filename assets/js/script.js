@@ -137,8 +137,23 @@ function extractSearchResults(data) {
     }
 
     // Change document.location property to open search results page
-    document.location.assign("./search.html");
+    // if (!document.location.pathname.includes("search.html")) {
+    //     document.location.assign("./search.html");
+    // }
+    // console.log(results);
     populateSearchResults(results);
+}
+
+// Populate search results function
+function populateSearchResults(results) {
+    u("#index-page").attr("style", "display:none");
+    u("#results-page").attr("style", "display:block");
+    // Use the search results to dynamically generate html
+    for (var i = 0; i < results.length; i++) {
+        console.log(results[i]);
+        // Append the dynamically generated html to the search results container
+        u("#result-list").append("<div id='result" + i + "' class='block is-grey-light has-border-grey-dark columns'><div class='column'><img src='" + results[i].thumbnail + "'/></div></div");
+    }
 }
 
 // Close button event listener
@@ -148,3 +163,5 @@ u(".close-search").on("click", closeSearch);
 u(".book-search").on("submit", findBooks);
 
 u(searchButton).on("click", openSearch);
+
+// Event listener for click of search result
