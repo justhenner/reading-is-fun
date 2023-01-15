@@ -119,7 +119,16 @@ function extractSearchResults(data) {
     for (var i = 0; i < data.items.length; i++) {
         var result = {};
         result.id = data.items[i].id;
-        result.authors = data.items[i].volumeInfo.authors;
+        result.authors = "";
+        if (data.items[i].volumeInfo.authors.length > 1) {
+            for (var j = 0; j < data.items[i].volumeInfo.authors.length - 1; j++) {
+                result.authors += data.items[i].volumeInfo.authors[j];
+                result.authors += ", ";
+            }
+            result.authors += data.items[i].volumeInfo.authors[data.items[i].volumeInfo.authors.length - 1];
+        } else {
+            result.authors = data.items[i].volumeInfo.authors[0];
+        }
         result.categories = data.items[i].volumeInfo.categories;
         result.description = data.items[i].volumeInfo.description;
         if (data.items[i].volumeInfo.imageLinks) {
@@ -131,7 +140,11 @@ function extractSearchResults(data) {
         result.previewLink = "https" + data.items[i].volumeInfo.previewLink.slice(4);
         result.publicationDate = data.items[i].volumeInfo.publishedDate.slice(0, 4);
         result.title = data.items[i].volumeInfo.title;
-        result.subtitle = data.items[i].volumeInfo.subtitle;
+        if (data.items[i].volumeInfo.subtitle) {
+            result.subtitle = data.items[i].volumeInfo.subtitle;
+        } else {
+            result.subtitle = "";
+        }
         result.isbn = data.items[i].volumeInfo.industryIdentifiers[0].identifier;
         results.push(result);
     }
@@ -152,7 +165,7 @@ function populateSearchResults(results) {
     for (var i = 0; i < results.length; i++) {
         console.log(results[i]);
         // Append the dynamically generated html to the search results container
-        u("#result-list").append("<div id='result" + i + "' class='block is-grey-light has-border-grey-dark columns'><div class='column'><img src='" + results[i].thumbnail + "'/></div></div");
+        var newResult = u("#result-list").append("<div id='result" + i + "' class='box is-shadowless has-background-grey-lighter result mb-5 px-2 py-1 w-100 columns'><div><img src='" + results[i].thumbnail + "'/></div><div class='column'><h3 class='is-size-4'>" + results[i].title + "</h3><h4 class='is-size-5'>" + results[i].subtitle + "</h4><p class='is-size-6'>Author(s): " + results[i].authors + "</p></div></div");
     }
 }
 
