@@ -9,6 +9,18 @@ var subjectInput = document.querySelector(".subject-input");
 var googleURL = "";
 var query = "";
 
+function openLibrary() {
+    console.log("loaded");
+    fetch("https://openlibrary.org/api/books?bibkeys=isbn:9780425057735&jscmd=details&format=json")
+        .then(function (response) {
+            console.log(response);
+            response.json()
+                .then(function (data) {
+                    console.log(data);
+                });
+        });
+}
+
 function openSearch() {
     if (document.getElementById("search-modal")) {
         document.getElementById("search-modal").classList.add('is-active');
@@ -138,6 +150,7 @@ function callGoogleBooksAPI(url) {
 
 // Google Books API callback function
 function extractSearchResults(data) {
+    console.log(data);
     // Extract results from the API response
     var results = [];
 
@@ -196,7 +209,7 @@ function populateSearchResults(results) {
     u("#index-page").remove();
     u("#results-page").attr("style", "display:block");
 
-    populateLibrary();
+    // populateLibrary();
 
     document.getElementById("results-heading").textContent = 'Search results for "' + query + '"';
 
@@ -218,3 +231,5 @@ u(".close-search").on("click", closeSearch);
 u(".book-search").on("submit", findBooks);
 
 u(searchButton).on("click", openSearch);
+
+document.querySelector("body").addEventListener("load", (openLibrary()));
