@@ -176,7 +176,10 @@ function extractSearchResults(data) {
         }
         result.pages = data.items[i].volumeInfo.pageCount;
         result.previewLink = "https" + data.items[i].volumeInfo.previewLink.slice(4);
-        result.publicationDate = data.items[i].volumeInfo.publishedDate.slice(0, 4);
+        result.publicationDate = "";
+        if (data.items[i].volumeInfo.publishedDate) {
+            result.publicationDate = data.items[i].volumeInfo.publishedDate.slice(0, 4);
+        }
         result.title = data.items[i].volumeInfo.title;
         if (data.items[i].volumeInfo.subtitle) {
             result.subtitle = data.items[i].volumeInfo.subtitle;
@@ -191,13 +194,21 @@ function extractSearchResults(data) {
     populateSearchResults(results);
 }
 
+// Function to populate the library from local storage
+function populateLibrary() {
+
+}
+
 // Populate search results function
 function populateSearchResults(results) {
     u("#index-page").remove();
+    u("#details-left").children().remove();
+    u("#details-right").children().remove();
+    u("#details").addClass("is-hidden");
     u("#results-page").attr("style", "display:block");
     u("#search-results").removeClass("is-hidden");
 
-    // populateLibrary();
+    populateLibrary();
 
     document.getElementById("results-heading").textContent = 'Search results for "' + query + '"';
 
@@ -226,6 +237,7 @@ function populateSearchResults(results) {
 // Function to show the details of the clicked search result or library book
 function showDetails(event) {
     // clear the search results from the screen
+    u("#result-list").off("click");
     u("#search-results").addClass("is-hidden");
     u("#details").removeClass("is-hidden");
 
@@ -246,8 +258,17 @@ function showDetails(event) {
     u("#details-left").append("<p class='is-size-6'>Author(s): " + dataPackage.getAttribute("data-authors") + "</p><p class='is-size-6'>Publication Date: " + dataPackage.getAttribute("data-publicationDate") + "</p><p class='is-size-6'>" + dataPackage.getAttribute("data-pages") + " pages</p><p class='is-size-6'>Subject(s): " + dataPackage.getAttribute("data-categories") + "</p><p class='is-size-6 my-3 is-clipped'>" + dataPackage.getAttribute("data-description") + "</p>");
 
     // execute a function call to fetch data from the Bored API
+    getAlternateActivity();
 
     // append a preview of the book from Google Books
+    u("#details-right").append("<button class='button is-fullwidth is-primary' id='add-to-library'>Put this book in my library</button><div id='viewerCanvas' class='is-full has-ratio is-6by-5'></div>");
+    var data = dataPackage.dataset;
+    for (var key in data) {
+        u("#add-to-library").data(key, data[key]);
+    }
+}
+
+function getAlternateActivity() {
 
 }
 
