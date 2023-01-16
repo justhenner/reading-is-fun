@@ -176,14 +176,20 @@ function extractSearchResults(data) {
         }
         result.pages = data.items[i].volumeInfo.pageCount;
         result.previewLink = "https" + data.items[i].volumeInfo.previewLink.slice(4);
-        result.publicationDate = data.items[i].volumeInfo.publishedDate.slice(0, 4);
+        result.publicationDate = "";
+        if (data.items[i].volumeInfo.publishedDate) {
+            result.publicationDate = data.items[i].volumeInfo.publishedDate.slice(0, 4);
+        }
         result.title = data.items[i].volumeInfo.title;
         if (data.items[i].volumeInfo.subtitle) {
             result.subtitle = data.items[i].volumeInfo.subtitle;
         } else {
             result.subtitle = "";
         }
-        result.isbn = data.items[i].volumeInfo.industryIdentifiers[0].identifier;
+        result.isbn = 0;
+        if (data.items[i].volumeInfo.industryIdentifiers) {
+            result.isbn = data.items[i].volumeInfo.industryIdentifiers[0].identifier;
+        }
         results.push(result);
     }
 
@@ -191,10 +197,19 @@ function extractSearchResults(data) {
     populateSearchResults(results);
 }
 
+// Function to populate the library from local storage
+function populateLibrary() {
+
+}
+
 // Populate search results function
 function populateSearchResults(results) {
     u("#index-page").remove();
+    u("#details-left").children().remove();
+    u("#details-right").children().remove();
+    u("#details").addClass("is-hidden");
     u("#results-page").attr("style", "display:block");
+    u("#search-results").removeClass("is-hidden");
 
     populateLibrary();
 
@@ -204,11 +219,85 @@ function populateSearchResults(results) {
     u("#result-list").empty();
     for (var i = 0; i < results.length; i++) {
         // Append the dynamically generated html to the search results container
-        var newResult = u("#result-list").append("<div id='result" + i + "' class='box is-shadowless has-background-grey-lighter result mb-5 px-2 py-1 w-100 columns is-clickable'><div><img src='" + results[i].thumbnail + "'/></div><div class='column'><h3 class='is-size-4 has-text-primary-dark'>" + results[i].title + "</h3><h4 class='is-size-5 has-text-primary'>" + results[i].subtitle + "</h4><p class='is-size-6'>Author(s): " + results[i].authors + "</p><div class='columns'><p class='column is-size-6 pb-0'>Publication Date: " + results[i].publicationDate + "</p><p class='column is-size-6'>" + results[i].pages + " pages</p></div><p class='is-size-6'>Subject(s): " + results[i].categories + "</p></div></div");
-        u(newResult).data({ thumbnail: results[i].thumbnail, title: results[i].title, subtitle: results[i].subtitle, authors: results[i].authors, publicationDate: results[i].publicationDate, pages: results[i].pages, categories: results[i].categories, id: results[i].id, description: results[i].description, previewLink: results[i].previewLink, isbn: results[i].isbn });
+        u("#result-list").append("<div id='result" + i + "' class='box is-shadowless has-background-grey-lighter result mb-5 px-2 py-1 w-100 columns data-package is-clickable'><div><img src='" + results[i].thumbnail + "'/></div><div class='column'><h3 class='is-size-4 has-text-primary-dark'>" + results[i].title + "</h3><h4 class='is-size-5 has-text-primary'>" + results[i].subtitle + "</h4><p class='is-size-6'>Author(s): " + results[i].authors + "</p><div class='columns'><p class='column is-size-6 pb-0'>Publication Date: " + results[i].publicationDate + "</p><p class='column is-size-6'>" + results[i].pages + " pages</p></div><p class='is-size-6'>Subject(s): " + results[i].categories + "</p></div></div");
+        var newResult = document.getElementById("result" + i);
+        newResult.setAttribute("data-thumbnail", results[i].thumbnail);
+        newResult.setAttribute("data-title", results[i].title);
+        newResult.setAttribute("data-subtitle", results[i].subtitle);
+        newResult.setAttribute("data-authors", results[i].authors);
+        newResult.setAttribute("data-publicationDate", results[i].publicationDate);
+        newResult.setAttribute("data-pages", results[i].pages);
+        newResult.setAttribute("data-categories", results[i].categories);
+        newResult.setAttribute("data-id", results[i].id);
+        newResult.setAttribute("data-description", results[i].description);
+        newResult.setAttribute("data-previewLink", results[i].previewLink);
+        newResult.setAttribute("data-isbn", results[i].isbn);
     }
     query = "";
     u("#result-list").on("click", showDetails);
+}
+
+// Function to show the details of the clicked search result or library book
+function showDetails(event) {
+    // clear the search results from the screen
+    u("#result-list").off("click");
+    u("#search-results").addClass("is-hidden");
+    u("#details").removeClass("is-hidden");
+
+    // replace the search results with details of the selected book
+    var dataPackage = event.target;
+    while (!dataPackage.matches(".data-package")) {
+        dataPackage = dataPackage.parentElement;
+    }
+
+    // Title
+    u("#details-left").append("<h3 id='details-title' class='is-size-4 has-text-primary-dark'>" + dataPackage.getAttribute("data-title") + "</h3>");
+    var detailsTitle = document.getElementById("details-title");
+    if (dataPackage.getAttribute("data-subtitle")) {
+        detailsTitle.textContent += ": " + dataPackage.getAttribute("data-subtitle");
+    }
+
+    // Details
+    u("#details-left").append("<p class='is-size-6'>Author(s): " + dataPackage.getAttribute("data-authors") + "</p><p class='is-size-6'>Publication Date: " + dataPackage.getAttribute("data-publicationDate") + "</p><p class='is-size-6'>" + dataPackage.getAttribute("data-pages") + " pages</p><p class='is-size-6'>Subject(s): " + dataPackage.getAttribute("data-categories") + "</p><p class='is-size-6 my-3 is-clipped'>" + dataPackage.getAttribute("data-description") + "</p>");
+
+    // execute a function call to fetch data from the Bored API
+    getAlternateActivity();
+
+    // append a preview of the book from Google Books
+    u("#details-right").append("<button class='button is-fullwidth is-primary' id='add-to-library'>Put this book in my library</button><div id='viewerCanvas' class='is-full has-ratio is-6by-5'></div>");
+    var data = dataPackage.dataset;
+    for (var key in data) {
+        u("#add-to-library").data(key, data[key]);
+    }
+
+}
+
+// Function to generate alternate activity
+function getAlternateActivity() {
+    // Execute a call to the Bored API
+    fetch("https://www.boredapi.com/api/activity/")
+        // Extract data from the response
+        .then(function (response) {
+            response.json()
+                .then(function (data) {
+                    var activity = {
+                        activity: data.activity,
+                        type: data.type,
+                        participants: data.participants,
+                        link: data.link
+                    };
+
+                    // Call a function to update the html
+                    appendActivity(activity);
+                })
+        });
+}
+
+function appendActivity(activity) {
+    u("#details-right").append("<div class='card mt-4'><header class='card-header'><p class='card-header-title'>Not interested? Try this instead!</p></header><div class='card-content'><div class='content'><p id='activity-name' class='has-text-primary'></p><p>Activity Type: " + activity.type + "</p><p>Number of People Required: " + activity.participants + "</p></div></div></div>");
+    if (activity.link) {
+       u("#activity-name").append("<a class='has-text-primary' href='" + activity.link + "' target='_blank'>" + activity.activity + "</a");
+    } else u("#activity-name").append(activity.activity);
 }
 
 // Close button event listener
