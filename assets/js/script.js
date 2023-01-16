@@ -8,6 +8,7 @@ var authorInput = document.querySelector(".author-input");
 var subjectInput = document.querySelector(".subject-input");
 var googleURL = "";
 var query = "";
+var library = [];
 
 function openSearch() {
     if (document.getElementById("search-modal")) {
@@ -264,12 +265,13 @@ function showDetails(event) {
     getAlternateActivity();
 
     // append a preview of the book from Google Books
-    u("#details-right").append("<button class='button is-fullwidth is-primary' id='add-to-library'>Put this book in my library</button><div id='viewerCanvas' class='is-full has-ratio is-6by-5'></div>");
+    u("#details-right").append("<button class='button is-fullwidth is-primary' id='add-to-library'>Put this book in my library</button>");
     var data = dataPackage.dataset;
     for (var key in data) {
         u("#add-to-library").data(key, data[key]);
     }
-
+    // Event listener for library add button
+    u("#add-to-library").on("click", saveFavorites);
 }
 
 // Function to generate alternate activity
@@ -296,8 +298,44 @@ function getAlternateActivity() {
 function appendActivity(activity) {
     u("#details-right").append("<div class='card mt-4'><header class='card-header'><p class='card-header-title'>Not interested? Try this instead!</p></header><div class='card-content'><div class='content'><p id='activity-name' class='has-text-primary'></p><p>Activity Type: " + activity.type + "</p><p>Number of People Required: " + activity.participants + "</p></div></div></div>");
     if (activity.link) {
-       u("#activity-name").append("<a class='has-text-primary' href='" + activity.link + "' target='_blank'>" + activity.activity + "</a");
+        u("#activity-name").append("<a class='has-text-primary' href='" + activity.link + "' target='_blank'>" + activity.activity + "</a");
     } else u("#activity-name").append(activity.activity);
+}
+
+// Function to save favorites
+function saveFavorites(event) {
+    // Populate the library array from local storage in reverse order
+    if (localStorage.getItem("library")) {
+        library = JSON.parse(localStorage.getItem("library")).reverse();
+    }
+
+    // Create an object for the current book and push it to the library array if it is not already present
+    var currentBook = {};
+    var data = document.getElementById("add-to-library").dataset;
+    for (var key in data) {
+       currentBook[key] = data[key];
+    }
+
+    var inLibrary = false;
+    for (var i = 0; i < library.length; i++) {
+        if (currentBook.isbn === library[i].isbn || currentBook.id === library[i].id) {
+            inLibrary = true;
+        }
+    }
+    if (!inLibrary) {
+        library.push(currentBook);
+    }
+    console.log(library.reverse());
+
+    // Reverse the order of the array and save it to local storage
+    localStorage.setItem("library", JSON.stringify(library.reverse()));
+
+    // Empty the library array
+    library = [];
+
+    // call the populateLibrary function
+    populateLibrary();
+
 }
 
 // Close button event listener
@@ -307,3 +345,4 @@ u(".close-search").on("click", closeSearch);
 u(".book-search").on("submit", findBooks);
 
 u(searchButton).on("click", openSearch);
+
