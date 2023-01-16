@@ -7,9 +7,12 @@ var titleInput = document.querySelector(".title-input");
 var authorInput = document.querySelector(".author-input");
 var subjectInput = document.querySelector(".subject-input");
 var googleURL = "";
+var query = "";
 
 function openSearch() {
-    document.getElementById("search-modal").classList.add('is-active');
+    if (document.getElementById("search-modal")) {
+        document.getElementById("search-modal").classList.add('is-active');
+    }
 }
 
 // Close the search modal when the user clicks the close button
@@ -30,7 +33,8 @@ function validateSearch(title, author, subject) {
     }
 }
 
-function closeValidation() {
+function closeValidation(event) {
+    event.preventDefault();
     u("#invalid-search").removeClass("is-active");
     if (document.location.pathname.includes("/index.html")) {
         openSearch();
@@ -80,9 +84,30 @@ function buildGoogleURL(title = "", author = "", subject = "") {
 function findBooks(event) {
     event.preventDefault();
 
+    var titleInput = document.querySelector(".title-input");
+    var authorInput = document.querySelector(".author-input");
+    var subjectInput = document.querySelector(".subject-input");
+
     var title = titleInput.value.trim();
     var author = authorInput.value.trim();
     var subject = subjectInput.value.trim();
+
+    if (title) {
+        query = title;
+        if (author) {
+            query += "+" + author;
+        }
+        if (subject) {
+            query += "+" + subject;
+        }
+    } else if (author) {
+        query = author;
+        if (subject) {
+            query += "+" + subject;
+        }
+    } else {
+        query = subject;
+    }
 
     titleInput.value = "";
     authorInput.value = "";
@@ -119,8 +144,30 @@ function extractSearchResults(data) {
     for (var i = 0; i < data.items.length; i++) {
         var result = {};
         result.id = data.items[i].id;
-        result.authors = data.items[i].volumeInfo.authors;
-        result.categories = data.items[i].volumeInfo.categories;
+        result.authors = "";
+        if (data.items[i].volumeInfo.authors) {
+            if (data.items[i].volumeInfo.authors.length > 1) {
+                for (var j = 0; j < data.items[i].volumeInfo.authors.length - 1; j++) {
+                    result.authors += data.items[i].volumeInfo.authors[j];
+                    result.authors += ", ";
+                }
+                result.authors += data.items[i].volumeInfo.authors[data.items[i].volumeInfo.authors.length - 1];
+            } else {
+                result.authors = data.items[i].volumeInfo.authors[0];
+            }
+        }
+        result.categories = "";
+        if (data.items[i].volumeInfo.categories) {
+            if (data.items[i].volumeInfo.categories.length > 1) {
+                for (var j = 0; j < data.items[i].volumeInfo.categories.length - 1; j++) {
+                    result.categories += data.items[i].volumeInfo.categories[j];
+                    result.categories += ", ";
+                }
+                result.categories += data.items[i].volumeInfo.categories[data.items[i].volumeInfo.categories.length - 1];
+            } else {
+                result.categories = data.items[i].volumeInfo.categories[0];
+            }
+        }
         result.description = data.items[i].volumeInfo.description;
         if (data.items[i].volumeInfo.imageLinks) {
             result.thumbnail = "https" + data.items[i].volumeInfo.imageLinks.thumbnail.slice(4);
@@ -131,14 +178,37 @@ function extractSearchResults(data) {
         result.previewLink = "https" + data.items[i].volumeInfo.previewLink.slice(4);
         result.publicationDate = data.items[i].volumeInfo.publishedDate.slice(0, 4);
         result.title = data.items[i].volumeInfo.title;
-        result.subtitle = data.items[i].volumeInfo.subtitle;
+        if (data.items[i].volumeInfo.subtitle) {
+            result.subtitle = data.items[i].volumeInfo.subtitle;
+        } else {
+            result.subtitle = "";
+        }
         result.isbn = data.items[i].volumeInfo.industryIdentifiers[0].identifier;
         results.push(result);
     }
 
-    // Change document.location property to open search results page
-    document.location.assign("./search.html");
+    // Call the populateSearchResults function
     populateSearchResults(results);
+}
+
+// Populate search results function
+function populateSearchResults(results) {
+    u("#index-page").remove();
+    u("#results-page").attr("style", "display:block");
+
+    populateLibrary();
+
+    document.getElementById("results-heading").textContent = 'Search results for "' + query + '"';
+
+    // Use the search results to dynamically generate html
+    u("#result-list").empty();
+    for (var i = 0; i < results.length; i++) {
+        // Append the dynamically generated html to the search results container
+        var newResult = u("#result-list").append("<div id='result" + i + "' class='box is-shadowless has-background-grey-lighter result mb-5 px-2 py-1 w-100 columns is-clickable'><div><img src='" + results[i].thumbnail + "'/></div><div class='column'><h3 class='is-size-4 has-text-primary-dark'>" + results[i].title + "</h3><h4 class='is-size-5 has-text-primary'>" + results[i].subtitle + "</h4><p class='is-size-6'>Author(s): " + results[i].authors + "</p><div class='columns'><p class='column is-size-6 pb-0'>Publication Date: " + results[i].publicationDate + "</p><p class='column is-size-6'>" + results[i].pages + " pages</p></div><p class='is-size-6'>Subject(s): " + results[i].categories + "</p></div></div");
+        u(newResult).data({ thumbnail: results[i].thumbnail, title: results[i].title, subtitle: results[i].subtitle, authors: results[i].authors, publicationDate: results[i].publicationDate, pages: results[i].pages, categories: results[i].categories, id: results[i].id, description: results[i].description, previewLink: results[i].previewLink, isbn: results[i].isbn });
+    }
+    query = "";
+    u("#result-list").on("click", showDetails);
 }
 
 // Close button event listener

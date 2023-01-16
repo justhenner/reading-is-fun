@@ -13,49 +13,97 @@
 </head>
 
 <body>
-    <div class="container validation">
-        <div class="py-5"></div>
-        <div class="m-5 p-3 py-5 is-rounded box content has-background-primary has-text-white is-block"
-            id="main-content">
-            <div>
-                <h1 class="is-block title is-2 my-5 has-text-white is-white has-text-centered">Reading is Fun</h1>
-                <p class="is-block subtitle has-text-white is-4 has-text-centered">Review before you buy</p>
-                <div class="is-flex">
-                    <button class="button is-outlined is-white mx-auto" id="search-btn">Find Me a Book</button>
+    <section id="index-page">
+        <div class="container validation">
+            <div class="py-5"></div>
+            <div class="m-5 p-3 py-5 is-rounded box content has-background-primary has-text-white is-block"
+                id="main-content">
+                <div>
+                    <h1 class="is-block title is-2 my-5 has-text-white is-white has-text-centered">Reading is Fun</h1>
+                    <p class="is-block subtitle has-text-white is-4 has-text-centered">Review before you buy</p>
+                    <div class="is-flex">
+                        <button class="button is-outlined is-white mx-auto" id="search-btn">Find Me a Book</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
 
-    <div class="modal" id="search-modal">
-        <div class="modal-background close-search"></div>
-        <div class="modal-content has-background-primary has-text-white py-5 px-5">
-            <button class="delete is-medium is-pulled-right close-search" aria-label="close"></button>
-            <form class="book-search" id="main-search">
-                <div class="field">
-                    <h3 class="title mb-6 has-text-white has-text-centered">Find Me a Book</h3>
-                    <div class="control">
-                        <input class="input title-input" type="text" placeholder="Title">
+        <div class="modal" id="search-modal">
+            <div class="modal-background close-search"></div>
+            <div class="modal-content has-background-primary has-text-white py-5 px-5">
+                <button class="delete is-medium is-pulled-right close-search" aria-label="close"></button>
+                <form class="book-search" id="main-search">
+                    <div class="field">
+                        <h3 class="title mb-6 has-text-white has-text-centered">Find Me a Book</h3>
+                        <div class="control">
+                            <input class="input title-input" type="text" placeholder="Title">
+                        </div>
                     </div>
-                </div>
-                <div class="field">
-                    <div class="control">
-                        <input class="input author-input" type="text" placeholder="Author">
+                    <div class="field">
+                        <div class="control">
+                            <input class="input author-input" type="text" placeholder="Author">
+                        </div>
                     </div>
-                </div>
-                <div class="field">
-                    <div class="control">
-                        <input class="input subject-input" type="text" placeholder="Subject">
+                    <div class="field">
+                        <div class="control">
+                            <input class="input subject-input" type="text" placeholder="Subject">
+                        </div>
                     </div>
-                </div>
-                <input type="submit" value="Find Me a Book" class="button is-outlined is-white mx-auto is-fullwidth search-for-books"
-                    aria-label="search"></input>
-            </form>
+                    <input type="submit" value="Find Me a Book"
+                        class="button is-outlined is-white mx-auto is-fullwidth search-for-books"
+                        aria-label="search"></input>
+                </form>
+            </div>
         </div>
-    </div>
+    </section>
 
+    <section id="results-page" style="display:none;">
+        <form class="book-search columns p-4 has-background-primary validation" id="search-form">
+            <input class="input column my-3 mx-3 px-2 is-normal is-rounded is-3 title-input" type="text"
+                placeholder="Title">
+            <input class="input column my-3 mx-3 px-2 is-normal is-rounded is-3 author-input" type="text"
+                placeholder="Author">
+            <input class="input column my-3 mx-3 subject-input px-2 is-normal is-rounded is-3" type="text"
+                placeholder="Genre">
+            <div class="column column is-normal is-rounded is-.5"></div>
+            <button class="button column mx-8 px-10 my-3 mr-2 is-normal is-rounded is-2 search-for-books">Find Me A
+                Book</button>
+        </form>
 
+        <div class="columns">
+            <div class="container column is-mobile section is-one-third  is-align-items-flex-start">
+                <section class="column has-background-warning-dark"
+                    style="height: 700px; border-style: solid; border-color: rgb(47, 14, 14);">
+                </section>
+            </div>
+
+            <div class="container column is-mobile section  is-align-items-flex-start">
+                <!-- <section class="column is-5 has-background-warning-dark" style="height:175px;">
+            </section> -->
+
+                <section id=searchQs class="columns is-size-2" style="height: fit-content;">
+                    <p id="results-heading">Search results for <span id='searchQ'></span></p>
+                </section>
+                <!-- <div class="columns is-multiline">
+                    <box class="column is-12 box is-radius  is-size-1 mt-6 my-3 " style="height: fit-content; border-style: solid; border-color: black;">
+                        I'm in a box.</box>
+                    <box class="column box is-radius is-12  is-size-1 my-3 " style="height: fit-content; border-style: solid; border-color: black;">I'm
+                        in a box.</box>
+                    <box class="column is-12 box is-radius  is-size-1 my-3 " style="height: fit-content; border-style: solid; border-color: black;">I'm
+                        in a box.</box>
+                        <box class="column is-12 box is-radius  is-size-1 my-3 " style="height: fit-content; border-style: solid; border-color: black;">I'm
+                        in a box.</box>
+                    <box class="column is-12 box is-radius is-size-1 my-3 " style="height: fit-content; border-style: solid; border-color: black;">I'm
+                                in a box.</box>
+                    </div> -->
+                <section id="result-list" class="is-size-1">
+
+                </section>
+
+            </div>
+        </div>
+    </section>
 
     <script src="https://cdn.jsdelivr.net/npm/umbrellajs"></script>
     <script src="./assets/js/script.js" async defer></script>
