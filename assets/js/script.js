@@ -9,18 +9,6 @@ var subjectInput = document.querySelector(".subject-input");
 var googleURL = "";
 var query = "";
 
-function openLibrary() {
-    console.log("loaded");
-    fetch("https://openlibrary.org/api/books?bibkeys=isbn:9780425057735&jscmd=details&format=json")
-        .then(function (response) {
-            console.log(response);
-            response.json()
-                .then(function (data) {
-                    console.log(data);
-                });
-        });
-}
-
 function openSearch() {
     if (document.getElementById("search-modal")) {
         document.getElementById("search-modal").classList.add('is-active');
@@ -150,7 +138,6 @@ function callGoogleBooksAPI(url) {
 
 // Google Books API callback function
 function extractSearchResults(data) {
-    console.log(data);
     // Extract results from the API response
     var results = [];
 
@@ -208,6 +195,7 @@ function extractSearchResults(data) {
 function populateSearchResults(results) {
     u("#index-page").remove();
     u("#results-page").attr("style", "display:block");
+    u("#search-results").removeClass("is-hidden");
 
     // populateLibrary();
 
@@ -224,6 +212,20 @@ function populateSearchResults(results) {
     u("#result-list").on("click", showDetails);
 }
 
+// Function to show the details of the clicked search result or library book
+function showDetails(event) {
+    // clear the search results from the screen
+    u("#search-results").addClass("is-hidden");
+
+    // replace the search results with details of the selected book
+    
+
+    // execute a function call to fetch data from the Bored API
+
+    // append a preview of the book from Google Books
+
+}
+
 // Close button event listener
 u(".close-search").on("click", closeSearch);
 
@@ -231,5 +233,3 @@ u(".close-search").on("click", closeSearch);
 u(".book-search").on("submit", findBooks);
 
 u(searchButton).on("click", openSearch);
-
-document.querySelector("body").addEventListener("load", (openLibrary()));
