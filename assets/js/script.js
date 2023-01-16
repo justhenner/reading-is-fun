@@ -9,6 +9,12 @@ var subjectInput = document.querySelector(".subject-input");
 var googleURL = "";
 var query = "";
 
+if (window.innerWidth > 1024) {
+    u("#bookshelf").removeClass("mx-0");
+    u("#library").removeClass("py-1");
+    u("#library").removeClass("mx-0");
+}
+
 function openSearch() {
     if (document.getElementById("search-modal")) {
         document.getElementById("search-modal").classList.add('is-active');

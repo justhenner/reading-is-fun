@@ -3,6 +3,12 @@
     border-color: hsl(0, 0%, 21%)!important;
 }
 
+#bookshelf {
+    background-image: url("../images/Bookshelves-Empty.png")!important;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
 @media screen and (min-width: 1024px) {
     #main-content {
         min-height:25vh;
@@ -14,4 +20,5 @@
     #main-content h1, #main-content p, #main-content div {
         width:100%!important;
     }
+
 }
