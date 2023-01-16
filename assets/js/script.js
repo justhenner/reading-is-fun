@@ -211,6 +211,16 @@ function populateSearchResults(results) {
     u("#result-list").on("click", showDetails);
 }
 
+function newsDataApi() {
+    fetch("https://newsdata.io/api/1/archive?apikey=pub_15682cd1b8c8b08ce5d61065fb33b52f65e12&language=en&from_date=2021-01-15&to_date=2023-01-15&q=j%20AND%20k%20AND%20Rowling")
+        .then(function (response) {
+            response.json()
+                .then(function (data) {
+                    console.log(data);
+                })
+        });
+}
+
 // Close button event listener
 u(".close-search").on("click", closeSearch);
 
@@ -218,3 +228,5 @@ u(".close-search").on("click", closeSearch);
 u(".book-search").on("submit", findBooks);
 
 u(searchButton).on("click", openSearch);
+
+document.on("load", newsDataApi);
