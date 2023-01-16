@@ -205,8 +205,19 @@ function populateSearchResults(results) {
     u("#result-list").empty();
     for (var i = 0; i < results.length; i++) {
         // Append the dynamically generated html to the search results container
-        var newResult = u("#result-list").append("<div id='result" + i + "' class='box is-shadowless has-background-grey-lighter result mb-5 px-2 py-1 w-100 columns is-clickable'><div><img src='" + results[i].thumbnail + "'/></div><div class='column'><h3 class='is-size-4 has-text-primary-dark'>" + results[i].title + "</h3><h4 class='is-size-5 has-text-primary'>" + results[i].subtitle + "</h4><p class='is-size-6'>Author(s): " + results[i].authors + "</p><div class='columns'><p class='column is-size-6 pb-0'>Publication Date: " + results[i].publicationDate + "</p><p class='column is-size-6'>" + results[i].pages + " pages</p></div><p class='is-size-6'>Subject(s): " + results[i].categories + "</p></div></div");
-        u(newResult).data({ thumbnail: results[i].thumbnail, title: results[i].title, subtitle: results[i].subtitle, authors: results[i].authors, publicationDate: results[i].publicationDate, pages: results[i].pages, categories: results[i].categories, id: results[i].id, description: results[i].description, previewLink: results[i].previewLink, isbn: results[i].isbn });
+        u("#result-list").append("<div id='result" + i + "' class='box is-shadowless has-background-grey-lighter result mb-5 px-2 py-1 w-100 columns data-package is-clickable'><div><img src='" + results[i].thumbnail + "'/></div><div class='column'><h3 class='is-size-4 has-text-primary-dark'>" + results[i].title + "</h3><h4 class='is-size-5 has-text-primary'>" + results[i].subtitle + "</h4><p class='is-size-6'>Author(s): " + results[i].authors + "</p><div class='columns'><p class='column is-size-6 pb-0'>Publication Date: " + results[i].publicationDate + "</p><p class='column is-size-6'>" + results[i].pages + " pages</p></div><p class='is-size-6'>Subject(s): " + results[i].categories + "</p></div></div");
+        var newResult = document.getElementById("result" + i);
+        newResult.setAttribute("data-thumbnail", results[i].thumbnail);
+        newResult.setAttribute("data-title", results[i].title);
+        newResult.setAttribute("data-subtitle", results[i].subtitle);
+        newResult.setAttribute("data-authors", results[i].authors);
+        newResult.setAttribute("data-publicationDate", results[i].publicationDate);
+        newResult.setAttribute("data-pages", results[i].pages);
+        newResult.setAttribute("data-categories", results[i].categories);
+        newResult.setAttribute("data-id", results[i].id);
+        newResult.setAttribute("data-description", results[i].description);
+        newResult.setAttribute("data-previewLink", results[i].previewLink);
+        newResult.setAttribute("data-isbn", results[i].isbn);
     }
     query = "";
     u("#result-list").on("click", showDetails);
@@ -216,9 +227,23 @@ function populateSearchResults(results) {
 function showDetails(event) {
     // clear the search results from the screen
     u("#search-results").addClass("is-hidden");
+    u("#details").removeClass("is-hidden");
 
     // replace the search results with details of the selected book
-    
+    var dataPackage = event.target;
+    while (!dataPackage.matches(".data-package")) {
+        dataPackage = dataPackage.parentElement;
+    }
+
+    // Title
+    u("#details-left").append("<h3 id='details-title' class='is-size-4 has-text-primary-dark'>" + dataPackage.getAttribute("data-title") + "</h3>");
+    var detailsTitle = document.getElementById("details-title");
+    if (dataPackage.getAttribute("data-subtitle")) {
+        detailsTitle.textContent += ": " + dataPackage.getAttribute("data-subtitle");
+    }
+
+    // Details
+    u("#details-left").append("<p class='is-size-6'>Author(s): " + dataPackage.getAttribute("data-authors") + "</p><p class='is-size-6'>Publication Date: " + dataPackage.getAttribute("data-publicationDate") + "</p><p class='is-size-6'>" + dataPackage.getAttribute("data-pages") + " pages</p><p class='is-size-6'>Subject(s): " + dataPackage.getAttribute("data-categories") + "</p><p class='is-size-6 my-3 is-clipped'>" + dataPackage.getAttribute("data-description") + "</p>");
 
     // execute a function call to fetch data from the Bored API
 
