@@ -196,7 +196,7 @@ function populateSearchResults(results) {
     u("#index-page").remove();
     u("#results-page").attr("style", "display:block");
 
-    populateLibrary();
+    // populateLibrary();
 
     document.getElementById("results-heading").textContent = 'Search results for "' + query + '"';
 
