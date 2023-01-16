@@ -266,6 +266,7 @@ function showDetails(event) {
     for (var key in data) {
         u("#add-to-library").data(key, data[key]);
     }
+
 }
 
 function getAlternateActivity() {
