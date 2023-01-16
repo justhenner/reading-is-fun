@@ -186,7 +186,10 @@ function extractSearchResults(data) {
         } else {
             result.subtitle = "";
         }
-        result.isbn = data.items[i].volumeInfo.industryIdentifiers[0].identifier;
+        result.isbn = 0;
+        if (data.items[i].volumeInfo.industryIdentifiers) {
+            result.isbn = data.items[i].volumeInfo.industryIdentifiers[0].identifier;
+        }
         results.push(result);
     }
 
@@ -269,8 +272,32 @@ function showDetails(event) {
 
 }
 
+// Function to generate alternate activity
 function getAlternateActivity() {
+    // Execute a call to the Bored API
+    fetch("https://www.boredapi.com/api/activity/")
+        // Extract data from the response
+        .then(function (response) {
+            response.json()
+                .then(function (data) {
+                    var activity = {
+                        activity: data.activity,
+                        type: data.type,
+                        participants: data.participants,
+                        link: data.link
+                    };
 
+                    // Call a function to update the html
+                    appendActivity(activity);
+                })
+        });
+}
+
+function appendActivity(activity) {
+    u("#details-right").append("<div class='card mt-4'><header class='card-header'><p class='card-header-title'>Not interested? Try this instead!</p></header><div class='card-content'><div class='content'><p id='activity-name' class='has-text-primary'></p><p>Activity Type: " + activity.type + "</p><p>Number of People Required: " + activity.participants + "</p></div></div></div>");
+    if (activity.link) {
+       u("#activity-name").append("<a class='has-text-primary' href='" + activity.link + "' target='_blank'>" + activity.activity + "</a");
+    } else u("#activity-name").append(activity.activity);
 }
 
 // Close button event listener
