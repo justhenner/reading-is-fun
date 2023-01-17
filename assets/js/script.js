@@ -201,10 +201,10 @@ function extractSearchResults(data) {
 // Function to populate the library from local storage
 function populateLibrary() {
 
-    var libaryDis = localStorage.getItem(JSON.parse('library'))
-    for (var i=0; i<libraryDis.length; i++){
-    u('#bookshelf').createElement('<div>'+libraryDis[i].thumbnail+'</div>')
-    }
+    // var libaryDis = localStorage.getItem(JSON.parse('library'))
+    // for (var i=0; i<libraryDis.length; i++){
+    // u('#bookshelf').createElement('<div>'+libraryDis[i].thumbnail+'</div>')
+    // }
 }
 
 // Populate search results function
@@ -271,12 +271,27 @@ function showDetails(event) {
     // execute a function call to fetch data from the Bored API
     getAlternateActivity();
 
-    // append a preview of the book from Google Books
+    // add add to library button
     u("#details-right").append("<button class='button is-fullwidth is-primary' id='add-to-library'>Put this book in my library</button>");
     var data = dataPackage.dataset;
     for (var key in data) {
         u("#add-to-library").data(key, data[key]);
     }
+    // append a preview of the book from Google Books
+    u('#details-right').append("<div id= 'preview' class='box is-fullwidth' style='height:600px'></div>")
+    console.log(dataPackage.getAttribute('data-previewLink'))
+    
+    function alertNotFound(){
+        alert("could not embed the book!")
+    }
+    
+    function initialize() {
+        var viewer = google.books.DefaultViewer(u('#preview'));
+        viewer.load(dataPackage.getAttribute('data-previewLink'), alertNotFound);
+      }
+    
+    google.books.setOnLoadCallback(initialize)
+
     // Event listener for library add button
     u("#add-to-library").on("click", saveFavorites);
 }
