@@ -206,8 +206,32 @@ function extractSearchResults(data) {
 
 // Function to populate the library from local storage
 function populateLibrary() {
+    if (localStorage.getItem("library")) {
+        library = JSON.parse(localStorage.getItem("library"));
+    }
+    for (var i= 0; i<library.length; i++){
+        // add li class
+        // img -> background img for li; style tag
+        // if thumbnail = unavil img src; then append <p> title
+        u('#bookshelf').append("<li id='fBook"+i+"' class='data-package'> <img src='" +library[i].thumbnail+ "'></li>");
+        var newfavorite = document.getElementById("fBook" + i);
+        newfavorite.setAttribute("data-thumbnail", library[i].thumbnail);
+        newfavorite.setAttribute("data-title", library[i].title);
+        newfavorite.setAttribute("data-subtitle", library[i].subtitle);
+        newfavorite.setAttribute("data-authors", library[i].authors);
+        newfavorite.setAttribute("data-publicationDate", library[i].publicationDate);
+        newfavorite.setAttribute("data-pages", library[i].pages);
+        newfavorite.setAttribute("data-categories", library[i].categories);
+        newfavorite.setAttribute("data-id", library[i].id);
+        newfavorite.setAttribute("data-description", library[i].description);
+        newfavorite.setAttribute("data-previewLink", library[i].previewLink);
+        newfavorite.setAttribute("data-isbn", library[i].isbn);
+        console.log(newfavorite);
+    }
+    u("#bookshelf").on('click', showDetails);
 
 }
+
 
 // Populate search results function
 function populateSearchResults(results) {
@@ -219,6 +243,7 @@ function populateSearchResults(results) {
     u("#search-results").removeClass("is-hidden");
 
     populateLibrary();
+    console.log(library = JSON.parse(localStorage.getItem("library")).reverse())
 
     document.getElementById("results-heading").textContent = 'Search results for "' + query + '"';
 
@@ -244,23 +269,28 @@ function populateSearchResults(results) {
     u("#result-list").on("click", showDetails);
 }
 
+
 // Function to show the details of the clicked search result or library book
 function showDetails(event) {
     // clear the search results from the screen
+    
     u("#result-list").off("click");
     u("#search-results").addClass("is-hidden");
     u("#details").removeClass("is-hidden");
+    u("#details-left").empty();
+    u("#details-right").empty();
 
     // replace the search results with details of the selected book
     var dataPackage = event.target;
     while (!dataPackage.matches(".data-package")) {
         dataPackage = dataPackage.parentElement;
     }
-
+    console.log(dataPackage);
     // Title
     u("#details-left").append("<h3 id='details-title' class='is-size-4 has-text-primary-dark'>" + dataPackage.getAttribute("data-title") + "</h3>");
     var detailsTitle = document.getElementById("details-title");
-    if (dataPackage.getAttribute("data-subtitle")) {
+    console.log(dataPackage.getAttribute("data-subtitle"));
+    if (dataPackage.getAttribute("data-subtitle") && dataPackage.getAttribute("data-subtitle") !="undefined") {
         detailsTitle.textContent += ": " + dataPackage.getAttribute("data-subtitle");
     }
 
@@ -335,7 +365,7 @@ function saveFavorites(event) {
 
     // Reverse the order of the array and save it to local storage
     localStorage.setItem("library", JSON.stringify(library.reverse()));
-
+    console.log(localStorage.getItem("library"))
     // Empty the library array
     library = [];
 
