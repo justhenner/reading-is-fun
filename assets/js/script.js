@@ -201,10 +201,13 @@ function extractSearchResults(data) {
 // Function to populate the library from local storage
 function populateLibrary() {
     if (localStorage.getItem("library")) {
-        library = JSON.parse(localStorage.getItem("library")).reverse();
+        library = JSON.parse(localStorage.getItem("library"));
     }
     for (var i= 0; i<library.length; i++){
-        u('#bookshelf').append("<li>"+"<img id='fBook"+i+"'src='" +library[i].thumbnail+ "'></li>");
+        // add li class
+        // img -> background img for li; style tag
+        // if thumbnail = unavil img src; then append <p> title
+        u('#bookshelf').append("<li id='fBook"+i+"' class='data-package'> <img src='" +library[i].thumbnail+ "'></li>");
         var newfavorite = document.getElementById("fBook" + i);
         newfavorite.setAttribute("data-thumbnail", library[i].thumbnail);
         newfavorite.setAttribute("data-title", library[i].title);
@@ -217,48 +220,12 @@ function populateLibrary() {
         newfavorite.setAttribute("data-description", library[i].description);
         newfavorite.setAttribute("data-previewLink", library[i].previewLink);
         newfavorite.setAttribute("data-isbn", library[i].isbn);
-        u("#fBook"+i).on('click', showFavorite)
+        console.log(newfavorite);
     }
+    u("#bookshelf").on('click', showDetails);
 
 }
-function showFavorite(event) {
-    // for (i=0; i<library.length; i++){
-    //     if(library[i].event.target)
-    // }
 
-    // clear the search results from the screen
-    
-    u("#result-list").off("click");
-    u("#search-results").addClass("is-hidden");
-    u("#details").removeClass("is-hidden");
-
-    // replace the search results with details of the selected book
-    var dataPackage = event.target
-    // console.log(localStorage.getItem(library[event.target]))
-
-
-    // Title
-    u("#details-left").append("<h3 id='details-title' class='is-size-4 has-text-primary-dark'>" + dataPackage.getAttribute("data-title") + "</h3>");
-    var detailsTitle = document.getElementById("details-title");
-    if (dataPackage.subtitle) {
-        detailsTitle.textContent += ": " + dataPackage.getAttribute("data-subtitle");
-    }
-
-    // Details
-    u("#details-left").append("<p class='is-size-6'>Author(s): " + dataPackage.getAttribute("data-authors") + "</p><p class='is-size-6'>Publication Date: " + dataPackage.getAttribute("data-publicationDate") + "</p><p class='is-size-6'>" + dataPackage.getAttribute("data-pages") + " pages</p><p class='is-size-6'>Subject(s): " + dataPackage.getAttribute("data-categories") + "</p><p class='is-size-6 my-3 is-clipped'>" + dataPackage.getAttribute("data-description") + "</p>");
-
-    // execute a function call to fetch data from the Bored API
-    getAlternateActivity();
-
-    // append a preview of the book from Google Books
-    u("#details-right").append("<button class='button is-fullwidth is-primary' id='add-to-library'>Put this book in my library</button>");
-    var data = dataPackage.dataset;
-    for (var key in data) {
-        u("#add-to-library").data(key, data[key]);
-    }
-    // Event listener for library add button
-    u("#add-to-library").on("click", saveFavorites);
-}
 
 // Populate search results function
 function populateSearchResults(results) {
@@ -304,17 +271,20 @@ function showDetails(event) {
     u("#result-list").off("click");
     u("#search-results").addClass("is-hidden");
     u("#details").removeClass("is-hidden");
+    u("#details-left").empty();
+    u("#details-right").empty();
 
     // replace the search results with details of the selected book
     var dataPackage = event.target;
     while (!dataPackage.matches(".data-package")) {
         dataPackage = dataPackage.parentElement;
     }
-
+    console.log(dataPackage);
     // Title
     u("#details-left").append("<h3 id='details-title' class='is-size-4 has-text-primary-dark'>" + dataPackage.getAttribute("data-title") + "</h3>");
     var detailsTitle = document.getElementById("details-title");
-    if (dataPackage.getAttribute("data-subtitle")) {
+    console.log(dataPackage.getAttribute("data-subtitle"));
+    if (dataPackage.getAttribute("data-subtitle") && dataPackage.getAttribute("data-subtitle") !="undefined") {
         detailsTitle.textContent += ": " + dataPackage.getAttribute("data-subtitle");
     }
 
