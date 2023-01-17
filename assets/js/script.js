@@ -203,6 +203,11 @@ function populateLibrary() {
     if (localStorage.getItem("library")) {
         library = JSON.parse(localStorage.getItem("library")).reverse();
     }
+for (var i = 0; i < library.length; i++) {   
+u("#bookshelf").append("<li id='favBook" + i + "'>" + library[i].thumbnail + "</li>");
+console.log(library[i].thumbnail)
+u(document.getElementById('demo'))
+}
 // 1. Take objects in library (these were parsed out...they will be taken by targetting bookshelf using Umbrella doc and creating variable)
 // 2a. Link objects to image with inner HTML, append or text content
 // 2b. Display on bookshelf as an icon image (need to create element and eventListener)
