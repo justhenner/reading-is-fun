@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href="./assets/css/style.css">
     <script type="text/javascript" src="https://www.google.com/books/jsapi.js"></script>
+    <script type="text/javascript">google.books.load();</script>
 </head>
 
 <body>
@@ -106,7 +107,9 @@
 
             <section id="details" class="container columns section is-align-content-space-between is-align-items-flex-start is-hidden">
                 <section class="column pr-4" id="details-left"></section>
-                <section class="column" id="details-right"></section>
+                <section class="column" id="details-right">
+                    <div id= 'preview' style=' width: 300px;height:600px'></div>
+                </section>
             </section>
 
         </div>

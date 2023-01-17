@@ -278,21 +278,16 @@ function showDetails(event) {
         u("#add-to-library").data(key, data[key]);
     }
     // append a preview of the book from Google Books
-    u('#details-right').append("<div id= 'preview' class='box is-fullwidth' style='height:600px'></div>")
-    console.log(dataPackage.getAttribute('data-previewLink'))
-    
-    function alertNotFound(){
-        alert("could not embed the book!")
+    u("#details-right").append("<button class='button is-fullwidth is-primary mt-4' id='previewlink'>Preview This Book</button>");
+    console.log("'"+dataPackage.getAttribute('data-previewLink')+"'")
+    function openPreview(){
+        window.open(dataPackage.getAttribute('data-previewLink'))
     }
     
-    function initialize() {
-        var viewer = google.books.DefaultViewer(u('#preview'));
-        viewer.load(dataPackage.getAttribute('data-previewLink'), alertNotFound);
-      }
     
-    google.books.setOnLoadCallback(initialize)
 
     // Event listener for library add button
+    u('#previewlink').on("click", openPreview)
     u("#add-to-library").on("click", saveFavorites);
 }
 
