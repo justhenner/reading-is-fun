@@ -203,7 +203,13 @@ function populateLibrary() {
     if (localStorage.getItem("library")) {
         library = JSON.parse(localStorage.getItem("library")).reverse();
     }
-}
+// 1. Take objects in library (these were parsed out...they will be taken by targetting bookshelf using Umbrella doc and creating variable)
+// 2a. Link objects to image with inner HTML, append or text content
+// 2b. Display on bookshelf as an icon image (need to create element and eventListener)
+// 3. Give attributes to display (thumbnail = data; must define data which is inside the object associated w/thumbnail; )
+// 4. LInk showDetails function to display (take data and use it in show display function)
+
+} 
 
 // Populate search results function
 function populateSearchResults(results) {
