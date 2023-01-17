@@ -207,6 +207,10 @@ function extractSearchResults(data) {
 // Function to populate the library from local storage
 function populateLibrary() {
 
+    // var libaryDis = localStorage.getItem(JSON.parse('library'))
+    // for (var i=0; i<libraryDis.length; i++){
+    // u('#bookshelf').createElement('<div>'+libraryDis[i].thumbnail+'</div>')
+    // }
 }
 
 // Populate search results function
@@ -219,6 +223,7 @@ function populateSearchResults(results) {
     u("#search-results").removeClass("is-hidden");
 
     populateLibrary();
+    console.log(library = JSON.parse(localStorage.getItem("library")).reverse())
 
     document.getElementById("results-heading").textContent = 'Search results for "' + query + '"';
 
@@ -244,9 +249,11 @@ function populateSearchResults(results) {
     u("#result-list").on("click", showDetails);
 }
 
+
 // Function to show the details of the clicked search result or library book
 function showDetails(event) {
     // clear the search results from the screen
+    
     u("#result-list").off("click");
     u("#search-results").addClass("is-hidden");
     u("#details").removeClass("is-hidden");
@@ -270,13 +277,23 @@ function showDetails(event) {
     // execute a function call to fetch data from the Bored API
     getAlternateActivity();
 
-    // append a preview of the book from Google Books
+    // add add to library button
     u("#details-right").append("<button class='button is-fullwidth is-primary' id='add-to-library'>Put this book in my library</button>");
     var data = dataPackage.dataset;
     for (var key in data) {
         u("#add-to-library").data(key, data[key]);
     }
+    // append a preview of the book from Google Books
+    u("#details-right").append("<button class='button is-fullwidth is-primary mt-4' id='previewlink'>Preview This Book</button>");
+    console.log("'"+dataPackage.getAttribute('data-previewLink')+"'")
+    function openPreview(){
+        window.open(dataPackage.getAttribute('data-previewLink'))
+    }
+    
+    
+
     // Event listener for library add button
+    u('#previewlink').on("click", openPreview)
     u("#add-to-library").on("click", saveFavorites);
 }
 
@@ -335,7 +352,7 @@ function saveFavorites(event) {
 
     // Reverse the order of the array and save it to local storage
     localStorage.setItem("library", JSON.stringify(library.reverse()));
-
+    console.log(localStorage.getItem("library"))
     // Empty the library array
     library = [];
 
