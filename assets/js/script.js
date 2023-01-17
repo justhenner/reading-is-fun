@@ -200,10 +200,8 @@ function extractSearchResults(data) {
 
 // Function to populate the library from local storage
 function populateLibrary() {
-
-    var libaryDis = localStorage.getItem(JSON.parse('library'))
-    for (var i=0; i<libraryDis.length; i++){
-    u('#bookshelf').createElement('<div>'+libraryDis[i].thumbnail+'</div>')
+    if (localStorage.getItem("library")) {
+        library = JSON.parse(localStorage.getItem("library")).reverse();
     }
 }
 
