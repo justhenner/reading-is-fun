@@ -204,7 +204,7 @@ function populateLibrary() {
         library = JSON.parse(localStorage.getItem("library")).reverse();
     }
 for (var i = 0; i < library.length; i++) {   
-u("#bookshelf").append("<li id='favBook" + i + "'>" + library[i].thumbnail + "</li>");
+u("#bookshelf").append("<li id='favBook" + i + "'>" + "<img src='"+ library[i].thumbnail + "'/></li>");
 console.log(library[i].thumbnail)
 u(document.getElementById('demo'))
 }
