@@ -9,19 +9,13 @@ var subjectInput = document.querySelector(".subject-input");
 var googleURL = "";
 var query = "";
 var library = [];
-var mq766 = window.matchMedia("(max-width: 766px)");
-var mq696 = window.matchMedia("(max-width: 696px)");
-var mq605 = window.matchMedia("(max-width: 605px)");
-var mq513 = window.matchMedia("(max-width: 513px)");
-var mq330 = window.matchMedia("(max-width: 330px)");
-var mq422 = window.matchMedia("(max-width: 422px)");
-var mq1460 = window.matchMedia("(max-width: 1460px)");
-var mq1184 = window.matchMedia("(max-width: 1184px)");
+var numBooks = 3;
 
 if (window.innerWidth > 1024) {
     u("#bookshelf").removeClass("mx-0");
     u("#library").removeClass("py-1");
     u("#library").removeClass("mx-0");
+    numBooks = 9;
 }
 
 function openSearch() {
@@ -218,78 +212,28 @@ function populateLibrary() {
     if (localStorage.getItem("library")) {
         library = JSON.parse(localStorage.getItem("library"));
     }
-    for(var i = 0; i<library.length; i++){
-        generateBooks();
-    }
-    // function screenIs766(mq766) {
-    //     if (mq766.matches) {
-    //         for (var i = 0; i < library.length && i < 35; i++) {
-    //             generateBooks()
-    //         }
-    //     }
-    // }
-    // function screenIs696(mq696) {
-    //     if (mq696.matches) {
-    //         for (var i = 0; i < library.length && i < 30; i++) {
-    //             generateBooks()
-    //         }
-    //     }
-    // }
-    // function screenIs605(mq605) {
-    //     if (mq605.matches) {
-    //         for (var i = 0; i < library.length && i < 25; i++) {
-    //             generateBooks()
-    //         }
-    //     }
-    // }
-    // function screenIs513(mq513) {
-    //     if (mq513.matches) {
-    //         for (var i = 0; i < library.length && i < 20; i++) {
-    //             generateBooks()
-    //         }
-    //     }
-    // }
-    // function screenIs330(mq330) {
-    //     if (mq330.matches) {
-    //         for (var i = 0; i < library.length && i < 10; i++) {
-    //             generateBooks()
-    //         }
-    //     }
-    // }
-    // function screenIs1460(mq1460) {
-    //     if (mq1460.matches) {
-    //         for (var i = 0; i < library.length && i < 20; i++) {
-    //             generateBooks()
-    //         }
-    //     }
-    // }
-    // function screenIs1184(mq1184) {
-    //     if (mq1184.matches) {
-    //         for (var i = 0; i < library.length && i < 10; i++) {
-    //             generateBooks()
-    //         }
-    //     }
 
-    // }
+    for (var i = 0; i < Math.min(library.length,numBooks); i++) {
+        // add li class
+        // img -> background img for li; style tag
+        // if thumbnail = unavil img src; then append <p> title
+
+        u('#bookshelf').append("<li id='fBook" + i + "' class='data-package library-book image has-ratio' style='background-image: url(" + library[i].thumbnail + ")'></li>");
 
 
-
-    // u("#bookshelf").off('click', showDetails);
-    u("#bookshelf").on('click', showDetails);
-    // u("#bookshelf").off('click', showDetails);
-    // u("#bookshelf").on('click', showDetails);
-
-    function generateBooks() {
-        // console.log(library[i].thumbnail)
-        u('#bookshelf').append("<li id='fBook" + i + "' class='data-package library-book image has-ratio ' style='background-image: url(" + library[i].thumbnail + ")'></li>");
+        // u('#bookshelf').append("<li id='fBook"+i+"' class='data-package '></li>");
 
         var newfavorite = document.getElementById("fBook" + i);
 
-        // console.log(library[i].thumbnail);
+        // u(newfavorite).append("<img class= 'library-book' src= '"+ library[i].thumbnail+"'/>")
+        console.log(library[i].thumbnail);
         if (library[i].thumbnail === "./assets/images/CoverUnavailable.jpg") {
             u(newfavorite).text(library[i].title);
+            // console.log(library[i].title)
         }
-
+        // if(i>1) {
+        //     library[i].includes();
+        // }
 
         newfavorite.setAttribute("data-thumbnail", library[i].thumbnail);
         newfavorite.setAttribute("data-title", library[i].title);
@@ -305,6 +249,10 @@ function populateLibrary() {
         console.log(newfavorite);
 
     }
+
+    u("#bookshelf").off('click', showDetails);
+    u("#bookshelf").on('click', showDetails);
+
 }
 
 
@@ -320,6 +268,7 @@ function populateSearchResults(results) {
     u("#search-results").removeClass("is-hidden");
 
     populateLibrary();
+    // console.log(library = JSON.parse(localStorage.getItem("library")));
 
     document.getElementById("results-heading").textContent = 'Search results for "' + query + '"';
 
@@ -365,7 +314,7 @@ function showDetails(event) {
     // Title
     u("#details-left").append("<h3 id='details-title' class='is-size-4 has-text-primary-dark'>" + dataPackage.getAttribute("data-title") + "</h3>");
     var detailsTitle = document.getElementById("details-title");
-    // console.log(dataPackage.getAttribute("data-subtitle"));
+    console.log(dataPackage.getAttribute("data-subtitle"));
     if (dataPackage.getAttribute("data-subtitle") && dataPackage.getAttribute("data-subtitle") != "undefined") {
         detailsTitle.textContent += ": " + dataPackage.getAttribute("data-subtitle");
     }
@@ -429,10 +378,12 @@ function saveFavorites(event) {
     }
 
     var inLibrary = false;
-    for (var i = 0; i < library.length; i++) {
-        if (currentBook.id === library[i].id) {
-            // if (currentBook.isbn === library[i].isbn || currentBook.id === library[i].id) {
-            inLibrary = true;
+    if (library) {
+        for (var i = 0; i < library.length; i++) {
+            if (currentBook.id === library[i].id) {
+                // if (currentBook.isbn === library[i].isbn || currentBook.id === library[i].id) {
+                inLibrary = true;
+            }
         }
     }
     if (!inLibrary) {
@@ -441,7 +392,7 @@ function saveFavorites(event) {
         library.unshift(currentBook);
     }
     // console.log(library.reverse());
-    if (library.length > 35) {
+    if (library.length > 8) {
         library.pop();
     }
     // Reverse the order of the array and save it to local storage
