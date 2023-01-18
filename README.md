@@ -18,13 +18,13 @@
 
 [Visit the Deployed Site](https://justhenner.github.io/reading-is-fun/)
 
-Reading Is Fun lets users peruse information aobut books provided by Google Books--with a twist. Users can search by title, author, and/or subject. Clicking on a search result displays the details for that book. The user has the option to add the book to the user's library, and a bookshelf displays all the user's saved books. The user can click on any book in the library to display the details for that book. 
+Reading Is Fun lets users peruse information about books provided by Google Books--with a twist. Users can search by title, author, and/or subject. Clicking on a search result displays the details for that book. The user has the option to add the book to the user's library, and a bookshelf displays all the user's saved books. The user can click on any book in the library to display the details for that book. 
 
 Like Google Books, Amazon, and most other sites that provide information about books, Reading Is Fun aims to provide information that allows readers to decide whether they would like to read a particular book. What differentiates Reading Is Fun is that it suggests an alternate activity in the event the user decides he or she does not want to read the selected book. Alternate activity suggestions are obtained from the Bored API.
 
 <br/>
 
-![Site Langing Page](./assets/images/LandingPage.jpg)
+![Site Langing Page](./assets/images/Reading%20is%20Fun.gif)
 
 <br/>
 
@@ -99,11 +99,18 @@ To complete this project, we explored a new CSS framework and a new JavaScript l
 
 ### Fayven Amelga
 
+* [Portfolio](https://famelga.github.io/Portfolio/)
+* [LinkedIn](https://www.linkedin.com/in/fayven-amelga-b09b17b6/)
+* [Github](https://github.com/famelga)
+
 
 <br/>
 
 ### Henner Espinoza
 
+* [Email](henner.espinoza@gmail.com)
+* [LinkedIn](https://www.linkedin.com/in/hennerespinoza/)
+* [GitHub](https://github.com/justhenner)
 
 <br/>
 
@@ -145,3 +152,11 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+## Badges
+
+![MIT Badge](https://img.shields.io/badge/license-MIT-blue)
+
+---
+
+© 2023 Trilogy Education Services, LLC, a 2U, Inc. brand. Confidential and Proprietary. All Rights Reserved.
