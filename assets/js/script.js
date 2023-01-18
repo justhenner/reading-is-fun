@@ -217,7 +217,7 @@ function populateLibrary() {
         // img -> background img for li; style tag
         // if thumbnail = unavil img src; then append <p> title
 
-        u('#bookshelf').append("<li id='fBook"+i+"' class='data-package library-book image has-ratio' style='background-image: url("+library[i].thumbnail+")'></li>");
+        u('#bookshelf').append("<li id='fBook"+i+"' class='data-package library-book image has-ratio ' style='background-image: url("+library[i].thumbnail+")'></li>");
         
 
         // u('#bookshelf').append("<li id='fBook"+i+"' class='data-package '></li>");
