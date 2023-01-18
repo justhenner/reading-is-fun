@@ -108,7 +108,9 @@ To complete this project, we explored a new CSS framework and a new JavaScript l
 <br/>
 
 ### Josh Matsumoto
-
+* [Portfolio](https://joshmatsumoto.github.io/josh-matsumotos-portfolio/)
+* [LinkedIn](https://www.linkedin.com/in/joshua-matsumoto-7629ab259/)
+* [Github](https://joshmatsumoto.github.io/josh-matsumotos-portfolio/)
 
 <br/>
 
