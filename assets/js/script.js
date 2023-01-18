@@ -10,6 +10,12 @@ var googleURL = "";
 var query = "";
 var library = [];
 
+if (window.innerWidth > 1024) {
+    u("#bookshelf").removeClass("mx-0");
+    u("#library").removeClass("py-1");
+    u("#library").removeClass("mx-0");
+}
+
 function openSearch() {
     if (document.getElementById("search-modal")) {
         document.getElementById("search-modal").classList.add('is-active');
@@ -209,8 +215,18 @@ function populateLibrary() {
         // add li class
         // img -> background img for li; style tag
         // if thumbnail = unavil img src; then append <p> title
-        u('#bookshelf').append("<li id='fBook"+i+"' class='data-package'> <img src='" +library[i].thumbnail+ "'></li>");
+        // u('#bookshelf').append("<li id='fBook"+i+"' class='data-package library-book' style='background-image: url("+library[i].thumbnail+")'></li>");
+        u('#bookshelf').append("<li id='fBook"+i+"' class='data-package '></li>");
+        
         var newfavorite = document.getElementById("fBook" + i);
+
+        u(newfavorite).append("<img class= 'library-book' src= '"+ library[i].thumbnail+"'/>")
+
+        if(library[i].thumbnail==="./assets/images/CoverUnavailable.jpg"){
+            u('.library-book').append("<box class= 'center'>"+library[i].title+"</box>")
+            console.log(library[i].title)
+        }
+
         newfavorite.setAttribute("data-thumbnail", library[i].thumbnail);
         newfavorite.setAttribute("data-title", library[i].title);
         newfavorite.setAttribute("data-subtitle", library[i].subtitle);
@@ -243,7 +259,7 @@ function populateSearchResults(results) {
     u("#search-results").removeClass("is-hidden");
 
     populateLibrary();
-    // console.log(library = JSON.parse(localStorage.getItem("library")).reverse())
+    console.log(library = JSON.parse(localStorage.getItem("library")).reverse())
 
     document.getElementById("results-heading").textContent = 'Search results for "' + query + '"';
 
