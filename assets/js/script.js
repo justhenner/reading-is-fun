@@ -211,15 +211,14 @@ function populateLibrary() {
     u("#bookshelf").empty();
     if (localStorage.getItem("library")) {
         library = JSON.parse(localStorage.getItem("library"));
-
     }
 
-    for (var i = 0; i < Math.min(library.length, numBooks); i++) {
+    for (var i = 0; i < Math.min(library.length,numBooks); i++) {
         // add li class
         // img -> background img for li; style tag
         // if thumbnail = unavil img src; then append <p> title
 
-        u('#bookshelf').append("<li id='fBook" + i + "' class='data-package mx-0 library-book image has-ratio column is-half mb-2' style='background-image: url(" + library[i].thumbnail + ")'></li>");
+        u('#bookshelf').append("<li id='fBook" + i + "' class='data-package library-book image has-ratio' style='background-image: url(" + library[i].thumbnail + ")'></li>");
 
 
         // u('#bookshelf').append("<li id='fBook"+i+"' class='data-package '></li>");
@@ -248,12 +247,15 @@ function populateLibrary() {
         newfavorite.setAttribute("data-previewLink", library[i].previewLink);
         newfavorite.setAttribute("data-isbn", library[i].isbn);
         console.log(newfavorite);
+
     }
 
     u("#bookshelf").off('click', showDetails);
     u("#bookshelf").on('click', showDetails);
 
 }
+
+
 
 
 // Populate search results function
@@ -308,7 +310,7 @@ function showDetails(event) {
     while (!dataPackage.matches(".data-package")) {
         dataPackage = dataPackage.parentElement;
     }
-    console.log(dataPackage);
+    // console.log(dataPackage);
     // Title
     u("#details-left").append("<h3 id='details-title' class='is-size-4 has-text-primary-dark'>" + dataPackage.getAttribute("data-title") + "</h3>");
     var detailsTitle = document.getElementById("details-title");
@@ -374,7 +376,7 @@ function saveFavorites(event) {
     for (var key in data) {
         currentBook[key] = data[key];
     }
-    
+
     var inLibrary = false;
     if (library) {
         for (var i = 0; i < library.length; i++) {
@@ -390,7 +392,7 @@ function saveFavorites(event) {
         library.unshift(currentBook);
     }
     // console.log(library.reverse());
-    if (library.length > 9) {
+    if (library.length > 8) {
         library.pop();
     }
     // Reverse the order of the array and save it to local storage
@@ -411,4 +413,5 @@ u(".close-search").on("click", closeSearch);
 u(".book-search").on("submit", findBooks);
 
 u(searchButton).on("click", openSearch);
+
 

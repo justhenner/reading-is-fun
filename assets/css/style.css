@@ -9,21 +9,37 @@
     background-size: 100% 100%;
 }
 .library-book{
-    min-height: 192px;
-    max-width: 128px;
+    height: 96px !important;
+    width: 64px !important;
+    font-size: larger !important;
+    font-weight: 900;
     background-repeat: no-repeat !important;
     background-size: cover !important;
-    border:solid;
+    border:solid !important;
+    text-align: center !important;
+    align-content: middle !important;
+    margin-bottom: 30px !important;
+    margin-top:0px !important;
+
+
+}
+#bookshelf{
+    height: 20% !important;
+    width: 70% !important;
+    display: flex !important;
+    flex-wrap:wrap !important;
+    margin-left: 15% !important;
+    padding-left: 5%;
+    padding-top: 4%;
+    padding-right: 0px !important;
+
+
 }
 .center{
     position: absolute !important;
     top: 50% !important;
     left: 50% !important;
     transform: translate(-50%, -50%) !important;
-}
-.bulma-overlay-mixin{
-    @include overlay(1.5rem);
-    padding: -2em;
 }
 
 @media screen and (min-width: 1024px) {
@@ -39,3 +55,34 @@
     }
 
 }
+
+/* @media screen and (max-width: 764px){
+    .library-book {
+        margin-bottom: 5px !important;
+    }
+}
+@media screen and (max-width: 696px){
+    .library-book {
+        margin-bottom: 8px !important;
+    }
+}
+@media screen and (max-width: 605px){
+    .library-book {
+        margin-bottom: 7px !important;
+    }
+}
+@media screen and (max-width: 513px){
+    .library-book {
+        margin-bottom: 10px !important;
+    }
+}
+@media screen and (max-width: 422px){
+    .library-book {
+        margin-bottom: 14px !important;
+    }
+}
+@media screen and (max-width: 330px){
+    .library-book {
+        margin-bottom: 17px !important;
+    }
+} */
