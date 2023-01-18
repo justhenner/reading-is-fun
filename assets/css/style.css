@@ -25,7 +25,7 @@
 }
 #bookshelf{
     height: 20% !important;
-    width: 75% !important;
+    width: 70% !important;
     display: flex !important;
     flex-wrap:wrap !important;
     border: solid;
