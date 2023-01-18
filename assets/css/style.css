@@ -11,9 +11,12 @@
 .library-book{
     height: 192px;
     width: 128px;
+    font-size: larger !important;
+    font-weight: 900;
     background-repeat: no-repeat !important;
     background-size: cover !important;
-    border:solid
+    border:solid;
+    a
 
 }
 .center{
