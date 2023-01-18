@@ -9,11 +9,11 @@
     background-size: 100% 100%;
 }
 .library-book{
-    height: 17% !important;
-    width: 29% !important;
+    /* height: 17% !important;
+    width: 29% !important; */
     background-repeat: no-repeat !important;
-    background-size: cover !important;
-    border:solid
+    /* background-size: cover !important;
+    border:solid */
 
 }
 .center{
