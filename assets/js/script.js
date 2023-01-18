@@ -192,6 +192,7 @@ function extractSearchResults(data) {
             result.isbn = data.items[i].volumeInfo.industryIdentifiers[0].identifier;
         }
         results.push(result);
+        
     }
 
     // Call the populateSearchResults function
@@ -202,6 +203,7 @@ function extractSearchResults(data) {
 function populateLibrary() {
     if (localStorage.getItem("library")) {
         library = JSON.parse(localStorage.getItem("library"));
+
     }
     for (var i= 0; i<library.length; i++){
         // add li class
@@ -221,8 +223,12 @@ function populateLibrary() {
         newfavorite.setAttribute("data-previewLink", library[i].previewLink);
         newfavorite.setAttribute("data-isbn", library[i].isbn);
         console.log(newfavorite);
+        
     }
+    u("#bookshelf").off('click', showDetails);
     u("#bookshelf").on('click', showDetails);
+    
+    
 
 }
 
@@ -237,7 +243,7 @@ function populateSearchResults(results) {
     u("#search-results").removeClass("is-hidden");
 
     populateLibrary();
-    console.log(library = JSON.parse(localStorage.getItem("library")).reverse())
+    // console.log(library = JSON.parse(localStorage.getItem("library")).reverse())
 
     document.getElementById("results-heading").textContent = 'Search results for "' + query + '"';
 
@@ -321,6 +327,7 @@ function getAlternateActivity() {
 
                     // Call a function to update the html
                     appendActivity(activity);
+                    
                 })
         });
 }
