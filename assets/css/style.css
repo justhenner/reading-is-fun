@@ -18,7 +18,7 @@
     border:solid !important;
     text-align: center !important;
     align-content: middle !important;
-    margin-bottom: 13% !important;
+    margin-bottom: 30px !important;
     margin-top:0px !important;
 
 
@@ -56,63 +56,34 @@
     }
 
 }
-@media screen and (min-width: 1733px){
+
+/* @media screen and (max-width: 764px){
     .library-book {
-        margin-bottom: 10% !important;
-    }
-}
-@media screen and (max-width: 1733px){
-    .library-book {
-        margin-bottom: 10% !important;
-    }
-}
-@media screen and (max-width: 1458px){
-    .library-book {
-        margin-bottom: 12% !important;
-    }
-}
-@media screen and (max-width: 1733px){
-    .library-book {
-        margin-bottom: 10% !important;
-    }
-}
-@media screen and (max-width: 1184px){
-    .library-book {
-        margin-bottom: 14% !important;
-    }
-}
-@media screen and (max-width: 1184px){
-    .library-book {
-        margin-bottom: 17% !important;
-    }
-}
-@media screen and (max-width: 764px){
-    .library-book {
-        margin-bottom: 5% !important;
+        margin-bottom: 5px !important;
     }
 }
 @media screen and (max-width: 696px){
     .library-book {
-        margin-bottom: 8% !important;
+        margin-bottom: 8px !important;
     }
 }
 @media screen and (max-width: 605px){
     .library-book {
-        margin-bottom: 7% !important;
+        margin-bottom: 7px !important;
     }
 }
 @media screen and (max-width: 513px){
     .library-book {
-        margin-bottom: 10% !important;
+        margin-bottom: 10px !important;
     }
 }
 @media screen and (max-width: 422px){
     .library-book {
-        margin-bottom: 14% !important;
+        margin-bottom: 14px !important;
     }
 }
 @media screen and (max-width: 330px){
     .library-book {
-        margin-bottom: 17% !important;
+        margin-bottom: 17px !important;
     }
-}
+} */

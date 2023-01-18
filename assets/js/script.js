@@ -219,7 +219,7 @@ function populateLibrary() {
         library = JSON.parse(localStorage.getItem("library"));
     }
     for(var i = 0; i<library.length; i++){
-        generateBooks()
+        generateBooks();
     }
     // function screenIs766(mq766) {
     //     if (mq766.matches) {
