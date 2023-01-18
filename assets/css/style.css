@@ -14,8 +14,14 @@
     background-repeat: no-repeat !important;
     background-size: cover !important;
     border:solid
-}
 
+}
+.center{
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+}
 .bulma-overlay-mixin{
     @include overlay(1.5rem);
     padding: -2em;

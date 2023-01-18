@@ -217,9 +217,12 @@ function populateLibrary() {
         u('#bookshelf').append("<li id='fBook"+i+"' class='data-package '></li>");
         
         var newfavorite = document.getElementById("fBook" + i);
+
         u(newfavorite).append("<img class= 'library-book' src= '"+ library[i].thumbnail+"'/>")
+
         if(library[i].thumbnail==="./assets/images/CoverUnavailable.jpg"){
-            u(newfavorite).append("<p class= 'center'>"+library[i].title+"</p>")
+            u('.library-book').append("<box class= 'center'>"+library[i].title+"</box>")
+            console.log(library[i].title)
         }
 
         newfavorite.setAttribute("data-thumbnail", library[i].thumbnail);
