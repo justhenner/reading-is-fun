@@ -24,7 +24,7 @@ Like Google Books, Amazon, and most other sites that provide information about b
 
 <br/>
 
-![Site Langing Page](./assets/images/LandingPage.jpg)
+![Site Langing Page](./assets/images/Reading%20is%20Fun.gif)
 
 <br/>
 
@@ -99,6 +99,10 @@ To complete this project, we explored a new CSS framework and a new JavaScript l
 
 ### Fayven Amelga
 
+* [Portfolio](https://famelga.github.io/Portfolio/)
+* [LinkedIn](https://www.linkedin.com/in/fayven-amelga-b09b17b6/)
+* [Github](https://github.com/famelga)
+
 
 <br/>
 
@@ -143,3 +147,11 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+## Badges
+
+![MIT Badge](https://img.shields.io/badge/license-MIT-blue)
+
+---
+
+© 2023 Trilogy Education Services, LLC, a 2U, Inc. brand. Confidential and Proprietary. All Rights Reserved.
