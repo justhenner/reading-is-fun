@@ -254,7 +254,7 @@ function populateLibrary() {
         }
     }
     else if (mq1184) {
-        for (var i = 0; i < library.length && i< 10; i++) {
+        for (var i = 0; i < library.length && i < 10; i++) {
             generateBooks()
         }
     }
@@ -263,29 +263,13 @@ function populateLibrary() {
             generateBooks()
         }
     }
-
-
-    // if (mq1460) {
-    //     for (var i = 0; i < 20; i++) {
-    //         generateBooks()
-    //     }
-    // }
-    // else if (mq1184) {
-    //     for (var i = 0; i < 10; i++) {
-    //         generateBooks()
-    //     }
-    // }
-
-
-
-
-
-
-    u("#bookshelf").off('click', showDetails);
+    // u("#bookshelf").off('click', showDetails);
     u("#bookshelf").on('click', showDetails);
+    // u("#bookshelf").off('click', showDetails);
+    // u("#bookshelf").on('click', showDetails);
 
     function generateBooks() {
-        console.log(library[i].thumbnail)
+        // console.log(library[i].thumbnail)
         u('#bookshelf').append("<li id='fBook" + i + "' class='data-package library-book image has-ratio ' style='background-image: url(" + library[i].thumbnail + ")'></li>");
 
         var newfavorite = document.getElementById("fBook" + i);
@@ -293,24 +277,25 @@ function populateLibrary() {
         // console.log(library[i].thumbnail);
         if (library[i].thumbnail === "./assets/images/CoverUnavailable.jpg") {
             u(newfavorite).text(library[i].title);
-
-
-            newfavorite.setAttribute("data-thumbnail", library[i].thumbnail);
-            newfavorite.setAttribute("data-title", library[i].title);
-            newfavorite.setAttribute("data-subtitle", library[i].subtitle);
-            newfavorite.setAttribute("data-authors", library[i].authors);
-            newfavorite.setAttribute("data-publicationDate", library[i].publicationDate);
-            newfavorite.setAttribute("data-pages", library[i].pages);
-            newfavorite.setAttribute("data-categories", library[i].categories);
-            newfavorite.setAttribute("data-id", library[i].id);
-            newfavorite.setAttribute("data-description", library[i].description);
-            newfavorite.setAttribute("data-previewLink", library[i].previewLink);
-            newfavorite.setAttribute("data-isbn", library[i].isbn);
-            // console.log(newfavorite);
-
         }
+
+
+        newfavorite.setAttribute("data-thumbnail", library[i].thumbnail);
+        newfavorite.setAttribute("data-title", library[i].title);
+        newfavorite.setAttribute("data-subtitle", library[i].subtitle);
+        newfavorite.setAttribute("data-authors", library[i].authors);
+        newfavorite.setAttribute("data-publicationDate", library[i].publicationDate);
+        newfavorite.setAttribute("data-pages", library[i].pages);
+        newfavorite.setAttribute("data-categories", library[i].categories);
+        newfavorite.setAttribute("data-id", library[i].id);
+        newfavorite.setAttribute("data-description", library[i].description);
+        newfavorite.setAttribute("data-previewLink", library[i].previewLink);
+        newfavorite.setAttribute("data-isbn", library[i].isbn);
+        console.log(newfavorite);
+
     }
 }
+
 
 
 
