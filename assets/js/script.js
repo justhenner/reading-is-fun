@@ -360,7 +360,7 @@ function appendActivity(activity) {
 function saveFavorites(event) {
     // Populate the library array from local storage in reverse order
     if (localStorage.getItem("library")) {
-        library = JSON.parse(localStorage.getItem("library")).reverse();
+        library = JSON.parse(localStorage.getItem("library"));
     }
 
     // Create an object for the current book and push it to the library array if it is not already present
@@ -383,7 +383,9 @@ function saveFavorites(event) {
         library.unshift(currentBook);
     }
     // console.log(library.reverse());
-
+    if(library.length > 8) {
+        library.pop();
+    }
     // Reverse the order of the array and save it to local storage
     localStorage.setItem("library", JSON.stringify(library));
     // console.log(localStorage.getItem("library"))
