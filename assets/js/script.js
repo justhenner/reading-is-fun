@@ -210,23 +210,23 @@ function populateLibrary() {
     if (localStorage.getItem("library")) {
         library = JSON.parse(localStorage.getItem("library"));
     }
-    console.log(library);
+
     for (var i= 0; i<library.length; i++){
         // add li class
         // img -> background img for li; style tag
         // if thumbnail = unavil img src; then append <p> title
 
-        u('#bookshelf').append("<li id='fBook"+i+"' class='data-package library-book' style='background-image: url("+library[i].thumbnail+")'></li>");
+        u('#bookshelf').append("<li id='fBook"+i+"' class='data-package library-book image has-ratio' style='background-image: url("+library[i].thumbnail+")'></li>");
         
 
-        u('#bookshelf').append("<li id='fBook"+i+"' class='data-package '></li>");
+        // u('#bookshelf').append("<li id='fBook"+i+"' class='data-package '></li>");
         
         var newfavorite = document.getElementById("fBook" + i);
 
-        u(newfavorite).append("<img class= 'library-book' src= '"+ library[i].thumbnail+"'/>")
-
+        // u(newfavorite).append("<img class= 'library-book' src= '"+ library[i].thumbnail+"'/>")
+        console.log(library[i].thumbnail);
         if(library[i].thumbnail==="./assets/images/CoverUnavailable.jpg"){
-            u('.library-book').text(library[i].title);
+            u(newfavorite).text(library[i].title);
             // console.log(library[i].title)
         } 
         // if(i>1) {
@@ -246,6 +246,7 @@ function populateLibrary() {
         newfavorite.setAttribute("data-isbn", library[i].isbn);
         console.log(newfavorite);
     }
+    
     u("#bookshelf").off('click', showDetails);
     u("#bookshelf").on('click', showDetails);
 
