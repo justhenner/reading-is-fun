@@ -9,7 +9,12 @@ var subjectInput = document.querySelector(".subject-input");
 var googleURL = "";
 var query = "";
 var library = [];
-var mqUnld = window.matchMedia("(max-width: 5000px)");
+var mq766 = window.matchMedia("(max-width: 766px)");
+var mq696 = window.matchMedia("(max-width: 696px)");
+var mq605 = window.matchMedia("(max-width: 605px)");
+var mq513 = window.matchMedia("(max-width: 513px)");
+var mq330 = window.matchMedia("(max-width: 330px)");
+var mq422 = window.matchMedia("(max-width: 422px)");
 var mq1460 = window.matchMedia("(max-width: 1460px)");
 var mq1184 = window.matchMedia("(max-width: 1184px)");
 
@@ -213,7 +218,37 @@ function populateLibrary() {
     if (localStorage.getItem("library")) {
         library = JSON.parse(localStorage.getItem("library"));
     }
-    if (mq1460) {
+    if (mq766) {
+        for (var i = 0; i < library.length && i < 35; i++) {
+            generateBooks()
+        }
+    }
+    else if (mq696) {
+        for (var i = 0; i < library.length && i < 30; i++) {
+            generateBooks()
+        }
+    }
+    else if (mq605) {
+        for (var i = 0; i < library.length && i < 25; i++) {
+            generateBooks()
+        }
+    }
+    else if (mq513) {
+        for (var i = 0; i < library.length && i < 20; i++) {
+            generateBooks()
+        }
+    }
+    else if (mq442) {
+        for (var i = 0; i < library.length && i < 15; i++) {
+            generateBooks()
+        }
+    }
+    else if (mq330) {
+        for (var i = 0; i < library.length && i < 10; i++) {
+            generateBooks()
+        }
+    }
+    else if (mq1460) {
         for (var i = 0; i < library.length && i < 20; i++) {
             generateBooks()
         }

@@ -56,3 +56,18 @@
     }
 
 }
+@media screen and (max-width: 766px){
+    .library-book {
+        margin-bottom: 5% !important;
+    }
+}
+@media screen and (max-width: 422px){
+    .library-book {
+        margin-bottom: 12% !important;
+    }
+}
+@media screen and (max-width: 422px){
+    .library-book {
+        margin-bottom: 20% !important;
+    }
+}
