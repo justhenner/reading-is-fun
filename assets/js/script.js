@@ -266,6 +266,7 @@ function populateSearchResults(results) {
     u("#search-results").removeClass("is-hidden");
 
     populateLibrary();
+    console.log(library = JSON.parse(localStorage.getItem("library")))
 
     document.getElementById("results-heading").textContent = 'Search results for "' + query + '"';
 
