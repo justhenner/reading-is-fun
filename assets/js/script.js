@@ -9,7 +9,7 @@ var subjectInput = document.querySelector(".subject-input");
 var googleURL = "";
 var query = "";
 var library = [];
-var numBooks = 5;
+var numBooks = 3;
 
 if (window.innerWidth > 1024) {
     u("#bookshelf").removeClass("mx-0");
@@ -218,7 +218,7 @@ function populateLibrary() {
         // img -> background img for li; style tag
         // if thumbnail = unavil img src; then append <p> title
 
-        u('#bookshelf').append("<li id='fBook"+i+"' class='data-package library-book image has-ratio column is-half mb-2' style='background-image: url("+library[i].thumbnail+")'></li>");
+        u('#bookshelf').append("<li id='fBook"+i+"' class='data-package mx-0 library-book image has-ratio column is-half mb-2' style='background-image: url("+library[i].thumbnail+")'></li>");
         
 
         // u('#bookshelf').append("<li id='fBook"+i+"' class='data-package '></li>");
