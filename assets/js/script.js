@@ -266,7 +266,7 @@ function populateSearchResults(results) {
     u("#search-results").removeClass("is-hidden");
 
     populateLibrary();
-    console.log(library = JSON.parse(localStorage.getItem("library")))
+    // console.log(library = JSON.parse(localStorage.getItem("library")));
 
     document.getElementById("results-heading").textContent = 'Search results for "' + query + '"';
 
@@ -374,8 +374,9 @@ function saveFavorites(event) {
     for (var key in data) {
         currentBook[key] = data[key];
     }
+    
+    var inLibrary = false;
     if (library) {
-        var inLibrary = false;
         for (var i = 0; i < library.length; i++) {
             if (currentBook.id === library[i].id) {
                 // if (currentBook.isbn === library[i].isbn || currentBook.id === library[i].id) {
