@@ -3,10 +3,22 @@
     border-color: hsl(0, 0%, 21%)!important;
 }
 
-#bookshelf {
+#bookshelfbg {
     background-image: url("../images/Bookshelves-Empty.png")!important;
     background-repeat: no-repeat;
     background-size: 100% 100%;
+}
+.library-book{
+    height: 17% !important;
+    width: 29% !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+    border:solid
+}
+
+.bulma-overlay-mixin{
+    @include overlay(1.5rem);
+    padding: -2em;
 }
 
 @media screen and (min-width: 1024px) {
