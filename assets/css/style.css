@@ -18,18 +18,22 @@
     border:solid !important;
     text-align: center !important;
     align-content: middle !important;
-    margin-bottom: 0px !important;
+    margin-bottom: 13% !important;
+    margin-top:0px !important;
 
 
 }
 #bookshelf{
-    height: 100% !important;
+    height: 20% !important;
     width: 75% !important;
     display: flex !important;
     flex-wrap:wrap !important;
     border: solid;
     margin-left: 15% !important;
-    margin-bottom: 5% !important;
+    padding-left: 5%;
+    padding-top: 4%;
+    padding-right: 0px !important;
+
 
 }
 .center{
