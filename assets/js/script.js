@@ -211,6 +211,7 @@ function populateLibrary() {
     u("#bookshelf").empty();
     if (localStorage.getItem("library")) {
         library = JSON.parse(localStorage.getItem("library"));
+        
     }
 
     for (var i= 0; i<Math.min(library.length, numBooks); i++){
