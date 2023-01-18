@@ -9,8 +9,8 @@
     background-size: 100% 100%;
 }
 .library-book{
-    height: 192px;
-    width: 128px;
+    min-height: 192px;
+    max-width: 128px;
     background-repeat: no-repeat !important;
     background-size: cover !important;
     border:solid

@@ -9,11 +9,13 @@ var subjectInput = document.querySelector(".subject-input");
 var googleURL = "";
 var query = "";
 var library = [];
+var numBooks = 5;
 
 if (window.innerWidth > 1024) {
     u("#bookshelf").removeClass("mx-0");
     u("#library").removeClass("py-1");
     u("#library").removeClass("mx-0");
+    numBooks = 9;
 }
 
 function openSearch() {
@@ -211,12 +213,12 @@ function populateLibrary() {
         library = JSON.parse(localStorage.getItem("library"));
     }
 
-    for (var i= 0; i<library.length; i++){
+    for (var i= 0; i<Math.min(library.length, numBooks); i++){
         // add li class
         // img -> background img for li; style tag
         // if thumbnail = unavil img src; then append <p> title
 
-        u('#bookshelf').append("<li id='fBook"+i+"' class='data-package library-book image has-ratio' style='background-image: url("+library[i].thumbnail+")'></li>");
+        u('#bookshelf').append("<li id='fBook"+i+"' class='data-package library-book image has-ratio column is-half mb-2' style='background-image: url("+library[i].thumbnail+")'></li>");
         
 
         // u('#bookshelf').append("<li id='fBook"+i+"' class='data-package '></li>");
@@ -384,7 +386,7 @@ function saveFavorites(event) {
         library.unshift(currentBook);
     }
     // console.log(library.reverse());
-    if(library.length > 8) {
+    if(library.length > 9) {
         library.pop();
     }
     // Reverse the order of the array and save it to local storage
