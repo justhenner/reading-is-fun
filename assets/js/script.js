@@ -9,11 +9,13 @@ var subjectInput = document.querySelector(".subject-input");
 var googleURL = "";
 var query = "";
 var library = [];
+var numBooks = 3;
 
 if (window.innerWidth > 1024) {
     u("#bookshelf").removeClass("mx-0");
     u("#library").removeClass("py-1");
     u("#library").removeClass("mx-0");
+    numBooks = 9;
 }
 
 function openSearch() {
@@ -206,15 +208,34 @@ function extractSearchResults(data) {
 
 // Function to populate the library from local storage
 function populateLibrary() {
+    u("#bookshelf").empty();
     if (localStorage.getItem("library")) {
         library = JSON.parse(localStorage.getItem("library"));
+        
     }
-    for (var i= 0; i<library.length; i++){
+
+    for (var i= 0; i<Math.min(library.length, numBooks); i++){
         // add li class
         // img -> background img for li; style tag
         // if thumbnail = unavil img src; then append <p> title
-        u('#bookshelf').append("<li id='fBook"+i+"' class='data-package'> <img src='" +library[i].thumbnail+ "'></li>");
+
+        u('#bookshelf').append("<li id='fBook"+i+"' class='data-package mx-0 library-book image has-ratio column is-half mb-2' style='background-image: url("+library[i].thumbnail+")'></li>");
+        
+
+        // u('#bookshelf').append("<li id='fBook"+i+"' class='data-package '></li>");
+        
         var newfavorite = document.getElementById("fBook" + i);
+
+        // u(newfavorite).append("<img class= 'library-book' src= '"+ library[i].thumbnail+"'/>")
+        console.log(library[i].thumbnail);
+        if(library[i].thumbnail==="./assets/images/CoverUnavailable.jpg"){
+            u(newfavorite).text(library[i].title);
+            // console.log(library[i].title)
+        } 
+        // if(i>1) {
+        //     library[i].includes();
+        // }
+
         newfavorite.setAttribute("data-thumbnail", library[i].thumbnail);
         newfavorite.setAttribute("data-title", library[i].title);
         newfavorite.setAttribute("data-subtitle", library[i].subtitle);
@@ -228,6 +249,8 @@ function populateLibrary() {
         newfavorite.setAttribute("data-isbn", library[i].isbn);
         console.log(newfavorite);
     }
+    
+    u("#bookshelf").off('click', showDetails);
     u("#bookshelf").on('click', showDetails);
 
 }
@@ -243,7 +266,7 @@ function populateSearchResults(results) {
     u("#search-results").removeClass("is-hidden");
 
     populateLibrary();
-    console.log(library = JSON.parse(localStorage.getItem("library")).reverse())
+    console.log(library = JSON.parse(localStorage.getItem("library")))
 
     document.getElementById("results-heading").textContent = 'Search results for "' + query + '"';
 
@@ -342,7 +365,7 @@ function appendActivity(activity) {
 function saveFavorites(event) {
     // Populate the library array from local storage in reverse order
     if (localStorage.getItem("library")) {
-        library = JSON.parse(localStorage.getItem("library")).reverse();
+        library = JSON.parse(localStorage.getItem("library"));
     }
 
     // Create an object for the current book and push it to the library array if it is not already present
@@ -354,18 +377,23 @@ function saveFavorites(event) {
 
     var inLibrary = false;
     for (var i = 0; i < library.length; i++) {
-        if (currentBook.isbn === library[i].isbn || currentBook.id === library[i].id) {
+        if (currentBook.id === library[i].id) {
+            // if (currentBook.isbn === library[i].isbn || currentBook.id === library[i].id) {
             inLibrary = true;
         }
     }
     if (!inLibrary) {
-        library.push(currentBook);
+        // library.push(currentBook);
+        // test
+        library.unshift(currentBook);
     }
-    console.log(library.reverse());
-
+    // console.log(library.reverse());
+    if(library.length > 9) {
+        library.pop();
+    }
     // Reverse the order of the array and save it to local storage
-    localStorage.setItem("library", JSON.stringify(library.reverse()));
-    console.log(localStorage.getItem("library"))
+    localStorage.setItem("library", JSON.stringify(library));
+    // console.log(localStorage.getItem("library"))
     // Empty the library array
     library = [];
 
