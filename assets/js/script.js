@@ -218,51 +218,62 @@ function populateLibrary() {
     if (localStorage.getItem("library")) {
         library = JSON.parse(localStorage.getItem("library"));
     }
-    if (mq766) {
-        for (var i = 0; i < library.length && i < 35; i++) {
-            generateBooks()
-        }
+    for(var i = 0; i<library.length; i++){
+        generateBooks()
     }
-    else if (mq696) {
-        for (var i = 0; i < library.length && i < 30; i++) {
-            generateBooks()
-        }
-    }
-    else if (mq605) {
-        for (var i = 0; i < library.length && i < 25; i++) {
-            generateBooks()
-        }
-    }
-    else if (mq513) {
-        for (var i = 0; i < library.length && i < 20; i++) {
-            generateBooks()
-        }
-    }
-    else if (mq442) {
-        for (var i = 0; i < library.length && i < 15; i++) {
-            generateBooks()
-        }
-    }
-    else if (mq330) {
-        for (var i = 0; i < library.length && i < 10; i++) {
-            generateBooks()
-        }
-    }
-    else if (mq1460) {
-        for (var i = 0; i < library.length && i < 20; i++) {
-            generateBooks()
-        }
-    }
-    else if (mq1184) {
-        for (var i = 0; i < library.length && i < 10; i++) {
-            generateBooks()
-        }
-    }
-    else {
-        for (var i = 0; i < library.length; i++) {
-            generateBooks()
-        }
-    }
+    // function screenIs766(mq766) {
+    //     if (mq766.matches) {
+    //         for (var i = 0; i < library.length && i < 35; i++) {
+    //             generateBooks()
+    //         }
+    //     }
+    // }
+    // function screenIs696(mq696) {
+    //     if (mq696.matches) {
+    //         for (var i = 0; i < library.length && i < 30; i++) {
+    //             generateBooks()
+    //         }
+    //     }
+    // }
+    // function screenIs605(mq605) {
+    //     if (mq605.matches) {
+    //         for (var i = 0; i < library.length && i < 25; i++) {
+    //             generateBooks()
+    //         }
+    //     }
+    // }
+    // function screenIs513(mq513) {
+    //     if (mq513.matches) {
+    //         for (var i = 0; i < library.length && i < 20; i++) {
+    //             generateBooks()
+    //         }
+    //     }
+    // }
+    // function screenIs330(mq330) {
+    //     if (mq330.matches) {
+    //         for (var i = 0; i < library.length && i < 10; i++) {
+    //             generateBooks()
+    //         }
+    //     }
+    // }
+    // function screenIs1460(mq1460) {
+    //     if (mq1460.matches) {
+    //         for (var i = 0; i < library.length && i < 20; i++) {
+    //             generateBooks()
+    //         }
+    //     }
+    // }
+    // function screenIs1184(mq1184) {
+    //     if (mq1184.matches) {
+    //         for (var i = 0; i < library.length && i < 10; i++) {
+    //             generateBooks()
+    //         }
+    //     }
+
+    // }
+
+
+
     // u("#bookshelf").off('click', showDetails);
     u("#bookshelf").on('click', showDetails);
     // u("#bookshelf").off('click', showDetails);
@@ -430,7 +441,7 @@ function saveFavorites(event) {
         library.unshift(currentBook);
     }
     // console.log(library.reverse());
-    if (library.length > 8) {
+    if (library.length > 35) {
         library.pop();
     }
     // Reverse the order of the array and save it to local storage
@@ -451,4 +462,5 @@ u(".close-search").on("click", closeSearch);
 u(".book-search").on("submit", findBooks);
 
 u(searchButton).on("click", openSearch);
+
 

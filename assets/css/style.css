@@ -56,18 +56,63 @@
     }
 
 }
-@media screen and (max-width: 766px){
+@media screen and (min-width: 1733px){
     .library-book {
-        margin-bottom: 5% !important;
+        margin-bottom: 10% !important;
     }
 }
-@media screen and (max-width: 422px){
+@media screen and (max-width: 1733px){
+    .library-book {
+        margin-bottom: 10% !important;
+    }
+}
+@media screen and (max-width: 1458px){
     .library-book {
         margin-bottom: 12% !important;
     }
 }
+@media screen and (max-width: 1733px){
+    .library-book {
+        margin-bottom: 10% !important;
+    }
+}
+@media screen and (max-width: 1184px){
+    .library-book {
+        margin-bottom: 14% !important;
+    }
+}
+@media screen and (max-width: 1184px){
+    .library-book {
+        margin-bottom: 17% !important;
+    }
+}
+@media screen and (max-width: 764px){
+    .library-book {
+        margin-bottom: 5% !important;
+    }
+}
+@media screen and (max-width: 696px){
+    .library-book {
+        margin-bottom: 8% !important;
+    }
+}
+@media screen and (max-width: 605px){
+    .library-book {
+        margin-bottom: 7% !important;
+    }
+}
+@media screen and (max-width: 513px){
+    .library-book {
+        margin-bottom: 10% !important;
+    }
+}
 @media screen and (max-width: 422px){
     .library-book {
-        margin-bottom: 20% !important;
+        margin-bottom: 14% !important;
+    }
+}
+@media screen and (max-width: 330px){
+    .library-book {
+        margin-bottom: 17% !important;
     }
 }
