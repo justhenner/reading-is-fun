@@ -206,8 +206,10 @@ function extractSearchResults(data) {
 
 // Function to populate the library from local storage
 function populateLibrary() {
+    u('#bookshelf').empty()
     if (localStorage.getItem("library")) {
         library = JSON.parse(localStorage.getItem("library"));
+        
     }
     for (var i= 0; i<library.length; i++){
         // add li class
