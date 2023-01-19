@@ -79,12 +79,151 @@ The details page, shown above, retains the search bar at the top and the library
 ## Learning Points 
 
 To complete this project, we explored a new CSS framework and a new JavaScript library, in addition to everything we learned from the actual implementation of the Reading Is Fun functionality and appearance:
-* Bulma CSS framework
-* UmbrellaJS JavaScript library
-* Using the window.innerWidth property in JavaScript to dynamically apply Bulma classes based on window size
-* Traversing dataset attributes
-* Resolving merge conflicts
+<br/>
 
+### Bulma CSS framework
+```
+<div class="modal" id="search-modal">
+<div class="modal-background close-search"></div>
+```
+This code shows how bulma contains classes that contain css info comlex enough to hold an entire modal as well as associated classes that modify not just the object but the window as well
+<br/>
+
+```
+<div class="container column is-mobile section is-one-third  is-align-items-flex-start">
+```
+
+This snippet displays some of the Bulma classes that attribute flex properties as well as mobile responsiveness
+<br/>
+
+### UmbrellaJS JavaScript library
+```
+u(".close-search").on("click", closeSearch);
+```
+UmbrellaJS is a javascript library similar to JQuery, containing similar functions in a condensed package totalling 2.5kb(gzipped)
+
+|javaScript|JQuery|UbrellaJS|
+|:---------:|:---------:|:---------:|
+|document.querySelector(x)|$(x)|u(x)|
+|addEventListner|on|on|
+<br/>
+
+### Using the window.innerWidth property in JavaScript to modify the size of a variable
+```
+if (window.innerWidth > 1024) {
+
+    numBooks = 9;
+}
+```
+...
+```
+for (var i = 0; i < Math.min(library.length, numBooks); i++)
+```
+Using a conditional statement that monitors the innerWidth of the window, we set the amount of books we pull from local storage
+<br/>
+
+### Call to API and Extracting Data
+```
+function callGoogleBooksAPI(url) {
+    fetch(url)
+        .then(function (response) {
+            response.json()
+                .then(function (data) {
+                    googleURL = "";
+                    extractSearchResults(data);
+                })
+        });
+}
+```
+This function makes a call to the API, recieves the result and passes the data from that response to the extractSearchResult Function
+
+<br/>
+
+```
+function extractSearchResults(data) {
+    // Extract results from the API response
+    var results = [];
+
+    for (var i = 0; i < data.items.length; i++) {
+        var result = {};
+        result.id = data.items[i].id;
+        result.authors = "";
+        if (data.items[i].volumeInfo.authors) {
+            if (data.items[i].volumeInfo.authors.length > 1) {
+                for (var j = 0; j < data.items[i].volumeInfo.authors.length - 1; j++) {
+                    result.authors += data.items[i].volumeInfo.authors[j];
+                    result.authors += ", ";
+                }
+                result.authors += data.items[i].volumeInfo.authors[data.items[i].volumeInfo.authors.length - 1];
+            } else {
+                result.authors = data.items[i].volumeInfo.authors[0];
+            }
+        }
+```
+...
+(in for loop)
+```
+results.push(result);
+```
+This is a snippet of the first for loop within the extract search results function. We do not need all of the information from the googleBooks API response, every for loop targets one piece of data and stores it into a result object. This result object is then pushed to the array of results with the associated id attached(i.e results.authors)
+
+<br/>
+This for loop in particular targets the authors data value. A nested conditional statement checks if: the author is listed; if there are multiple authours; and what to do if these instances occur.
+<br/>
+
+### Traversing dataset attributes
+```
+function populateSearchResults(results) {
+```
+...
+```
+u("#result-list").empty();
+    for (var i = 0; i < results.length; i++) {
+
+        // Append the dynamically generated html to the search results container
+
+        u("#result-list").append("<div id='result" + i + "' ...</div>
+        <div><img src='" + results[i].thumbnail + "'/></div>...
+
+        var newResult = document.getElementById("result" + i);
+        newResult.setAttribute("data-thumbnail", results[i].thumbnail);
+```
+This function dynmically generates searchResults to the HTML page. It is called upon in the extractSearchResults taking in the results array to: check its length in the for loop and assigns the data to an attribute of the variable of newResult which will be given to its' search result item. In this instance the thumnail data is attributed to the newResult variable with the key of "data-thumbnail"
+<br/>
+
+```
+u("#result-list").on("click", showDetails);
+```
+(apart of the populateSearchFunction)
+```
+function showDetails(event) {
+```
+...
+```
+ var dataPackage = event.target;
+```
+...
+```
+ u("#details-left").append("<h3 id='details-title' ..." + dataPackage.getAttribute("data-title") + "</h3>");
+```
+This cut down verion of the showDetails function displays how the data which is stored in the attributes of the newResults variable can be referanced by their associated key on the event of a click on the element to create an asset that appears on the HTML
+<br/>
+
+#### The Journey of Data
+> Response
+>>Data.items.thumbnail
+>>>Result.thumbnail
+>>>>Results Array [Result.thumnail]
+>>>>>Result.thumbnail="data-thumnail"
+>>>>>>newResult has attribute ("data-thumnail")
+>>>>>>>newResult connected to search element
+>>>>>>>>on click of search element passes to an attribut of var dataPackage
+>>>>>>>>>called on in an append to place in HTML
+
+<br/>
+
+### Resolving merge conflicts
+This proved to be an issue consistently for a majority of our group members. After exploring the merge editor and utilizing accept incoming or current, time spent merging exponentially decreased.
 <br/>
 
 ## Author Info
