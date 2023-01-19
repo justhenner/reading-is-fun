@@ -12,9 +12,9 @@ var library = [];
 var numBooks = 3;
 
 if (window.innerWidth > 1024) {
-    u("#bookshelf").removeClass("mx-0");
-    u("#library").removeClass("py-1");
-    u("#library").removeClass("mx-0");
+    // u("#bookshelf").removeClass("mx-0");
+    // u("#library").removeClass("py-1");
+    // u("#library").removeClass("mx-0");
     numBooks = 9;
 }
 
